@@ -6,13 +6,8 @@
   <title>โปรแกรมคำนวณโภชนาการ</title>
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-  <!-- ลบ script src="https://cdn.tailwindcss.com" เนื่องจากไม่จำเป็นเมื่อใช้ CDN -->
-  
-  <!-- เพิ่ม Google Font Kanit -->
   <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600&display=swap" rel="stylesheet">
-  
   <style>
-    /* ปรับปรุง CSS Variables ให้อยู่ใน :root */
     :root {
       --primary-color: #f2d7d5;
       --secondary-color: #d4efdf;
@@ -23,7 +18,6 @@
       --shadow-color: rgba(0, 0, 0, 0.1);
     }
 
-    /* Base Styles */
     body {
       font-family: 'Kanit', sans-serif;
       background-color: var(--bg-color);
@@ -32,7 +26,6 @@
       padding: 0;
     }
 
-    /* Dark Mode */
     .dark {
       --bg-color: #121212;
       --card-bg: #1f2937;
@@ -40,14 +33,12 @@
       --shadow-color: rgba(255, 255, 255, 0.1);
     }
 
-    /* Container */
     .container {
       max-width: 1200px;
       margin: 0 auto;
       padding: 1rem;
     }
 
-    /* Card */
     .card {
       background-color: var(--card-bg);
       border-radius: 1rem;
@@ -56,7 +47,6 @@
       margin-bottom: 1rem;
     }
 
-    /* Navigation */
     .nav-bar {
       position: fixed;
       top: 0;
@@ -74,7 +64,33 @@
       background-color: #1f2937;
     }
 
-    /* Grid Container */
+    .nav-bar a {
+      display: flex;
+      align-items: center;
+      padding: 0.75rem 1rem;
+      border-radius: 0.5rem;
+      text-decoration: none;
+      color: var(--text-color);
+      transition: background-color 0.3s, color 0.3s, transform 0.3s;
+      font-weight: 500;
+      transform-style: preserve-3d;
+    }
+
+    .nav-bar a i {
+      margin-right: 1rem;
+      font-size: 1.2rem;
+    }
+
+    .nav-bar li.active a {
+      background-color: var(--primary-color);
+      color: white;
+    }
+
+    .nav-bar li:hover a {
+      background-color: #e2e8f0;
+      transform: rotateY(15deg);
+    }
+
     .grid-container {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -83,7 +99,6 @@
       margin-left: 256px; /* ให้เท่ากับความกว้างของ nav-bar */
     }
 
-    /* Responsive Design */
     @media (max-width: 768px) {
       .nav-bar {
         position: static;
@@ -102,7 +117,6 @@
       }
     }
 
-    /* Loading Animation */
     .loading {
       width: 40px;
       height: 40px;
@@ -118,8 +132,8 @@
         transform: rotate(360deg);
       }
     }
-   /* เพิ่ม CSS สำหรับ Carousel */
-   .carousel-container {
+
+    .carousel-container {
       width: 100%;
       position: relative;
       overflow: hidden;
@@ -153,7 +167,6 @@
       background: var(--primary-color) !important;
     }
 
-    /* Animation เพิ่มเติม */
     .fade-in {
       animation: fadeIn 0.5s ease-in;
     }
@@ -168,61 +181,136 @@
         transform: translateY(0);
       }
     }
-    /* CSS สำหรับ Carousel */
-.carousel-container {
-  width: 100%;
-  position: relative;
-  overflow: hidden;
-  padding: 20px 0; 
-}
 
-.swiper-slide {
-  background: var(--card-bg);
-  border-radius: 1rem;
-  padding: 1rem; 
-  box-shadow: 0 4px 8px var(--shadow-color);
-}
+    .carousel-container {
+      width: 100%;
+      position: relative;
+      overflow: hidden;
+      padding: 20px 0;
+    }
 
-.carousel-image {
-  width: 100%;
-  height: 200px; 
-  object-fit: cover;
-  border-radius: 0.5rem;
-}
+    .swiper-slide {
+      background: var(--card-bg);
+      border-radius: 1rem;
+      padding: 1rem;
+      box-shadow: 0 4px 8px var(--shadow-color);
+    }
 
-.carousel-content {
-  padding: 1rem;
-  display: flex;
-  flex-direction: column; 
-}
+    .carousel-image {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      border-radius: 0.5rem;
+    }
 
-.swiper-button-next,
-.swiper-button-prev {
-  color: var(--primary-color) !important;
-  padding: 1rem; 
-}
+    .carousel-content {
+      padding: 1rem;
+      display: flex;
+      flex-direction: column;
+    }
 
-.swiper-pagination-bullet-active {
-  background: var(--primary-color) !important;
-}
+    .swiper-button-next,
+    .swiper-button-prev {
+      color: var(--primary-color) !important;
+      padding: 1rem;
+    }
 
-@media (max-width: 768px) {
-  .carousel-container {
-    padding: 10px; 
-  }
-  .swiper-slide {
-    padding: 0.5rem; 
-  }
-  .carousel-image {
-    height: 150px; 
-  }
-  .carousel-content h2 {
-    font-size: 1.2rem; 
-  }
-  .carousel-content p {
-    font-size: 0.9rem; 
-  }
-}
+    .swiper-pagination-bullet-active {
+      background: var(--primary-color) !important;
+    }
+
+    @media (max-width: 768px) {
+      .carousel-container {
+        padding: 10px;
+      }
+      .swiper-slide {
+        padding: 0.5rem;
+      }
+      .carousel-image {
+        height: 150px;
+      }
+      .carousel-content h2 {
+        font-size: 1.2rem;
+      }
+      .carousel-content p {
+        font-size: 0.9rem;
+      }
+    }
+
+    .language-toggle {
+      margin-top: 1rem;
+    }
+
+    .language-button {
+      display: flex;
+      align-items: center;
+      background-color: #f0f0f0;
+      border: none;
+      color: #333;
+      padding: 0.5rem 1rem;
+      border-radius: 0.5rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .language-button:hover {
+      background-color: #e0e0e0;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
+    }
+
+    .language-button.active {
+      background-color: #4CAF50;
+      color: white;
+    }
+
+    .language-button img {
+      width: 24px;
+      height: 24px;
+      margin-right: 0.5rem;
+    }
+
+    .language-button span {
+      font-weight: 600;
+    }
+
+    .goog-te-gadget-simple > img, 
+    .goog-te-gadget-simple > span > a > span:last-child {
+      display: none !important;
+    }
+
+    .goog-te-gadget-simple {
+      display: inline-flex;
+      align-items: center;
+      background-color: #f0f0f0;
+      border: none;
+      color: #333;
+      padding: 0.5rem 1rem;
+      border-radius: 5px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .goog-te-gadget-simple:hover {
+      background-color: #e0e0e0;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
+    }
+
+    .goog-te-gadget-simple > span > a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .goog-te-gadget-simple > span > a > span:first-child {
+      margin-right: 0.5rem;
+    }
+
+
   </style>
 </head>
 <body>
@@ -378,12 +466,173 @@
       </section>
 
       <section id="food-screen" class="screen hidden">
-        <article class="card p-4 mt-4 bg-white dark:bg-gray-700 rounded-lg shadow-md" aria-labelledby="food-screen-title">
-          <h2 id="food-screen-title" class="text-xl font-semibold text-gray-800 dark:text-white mb-4">ตัวอย่างอาหาร (1 ช้อนกินข้าว)</h2>
+        <article class="card p-4 mt-4 ml-4" aria-labelledby="food-screen-title">
+          <h2 id="food-screen-title" class="text-xl font-semibold text-gray-800 mb-4">ตัวอย่างอาหาร (1 ช้อนกินข้าว)</h2>
           <div class="food-grid grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+    
+            <div class="food-item border border-gray-200 rounded-md p-3 flex items-center">
+              <div class="food-icon w-12 h-12 rounded-full bg-gray-100 flex items-center justify-center mr-3">
+                <img src="https://img2.pic.in.th/pic/-17c916a15f6d8590cb.png"
+                  alt="กุ้ง" class="w-15 h-15 object-cover zoomable object-center">
+              </div>
+              <div>
+                <h3 class="font-medium text-gray-800">กุ้ง</h3>
+                <p class="text-sm text-gray-600">อาหารทะเล</p>
+              </div>
             </div>
-        </article>
-      </section>
+    
+            <div class="food-item border border-gray-200 rounded-md p-3 flex items-center">
+              <div class="food-icon w-12 h-12 rounded-full bg-gray-100 flex items-center justify-center mr-3">
+                <img src="https://img5.pic.in.th/file/secure-sv1/Screenshot_2025-01-08_115000-removebg-preview.png" alt="ไข่ขาว"
+                  class="w-15 h-15 object-cover zoomable object-center">
+              </div>
+              <div>
+                <h3 class="font-medium text-gray-800">ไข่ขาว</h3>
+                <p class="text-sm text-gray-600">ไข่</p>
+              </div>
+            </div>
+            <div class="food-item border border-gray-200 rounded-md p-3 flex items-center">
+              <div class="food-icon w-12 h-12 rounded-full bg-gray-100 flex items-center justify-center mr-3">
+                <img src="https://img5.pic.in.th/file/secure-sv1/Screenshot_2025-01-08_115201-removebg-preview.png"
+                  alt="ปลาทู" class="w-15 h-15 object-cover zoomable object-center">
+              </div>
+              <div>
+                <h3 class="font-medium text-gray-800">ปลาทู</h3>
+                <p class="text-sm text-gray-600">อาหารทะเล</p>
+              </div>
+            </div>
+            <div class="food-item border 
+            border-gray-200 rounded-md p-3 flex items-center">
+              <div class="food-icon w-12 h-12 rounded-full bg-gray-100 flex items-center justify-center mr-3">
+                <img src="https://img2.pic.in.th/pic/Screenshot_2025-01-08_115627-removebg-preview.png"
+                  alt="เนื้อไก่" class="w-15 h-15 object-cover zoomable object-center">
+              </div>
+              <div>
+                <h3 class="font-medium text-gray-800">เนื้อไก่</h3>
+                <p class="text-sm text-gray-600">เนื้อสัตว์</p>
+              </div>
+            </div>
+            <div class="food-item border border-gray-200 rounded-md p-3 flex items-center">
+              <div class="food-icon w-12 h-12 rounded-full bg-gray-100 flex items-center justify-center mr-3">
+                <img src="https://img2.pic.in.th/pic/Screenshot_2025-01-08_115752-removebg-preview.png"
+                  alt="หมูเนื้อแดง" class="w-15 h-15 object-cover zoomable object-center">
+              </div>
+              <div>
+                <h3 class="font-medium text-gray-800">หมูเนื้อแดง</h3>
+                <p 
+            class="text-sm text-gray-600">เนื้อสัตว์</p>
+              </div>
+            </div>
+            <div class="food-item border border-gray-200 rounded-md p-3 flex items-center">
+              <div class="food-icon w-12 h-12 rounded-full bg-gray-100 flex items-center justify-center mr-3">
+                <img src="https://img2.pic.in.th/pic/Screenshot_2025-01-08_115926-removebg-preview.png"
+                  alt="ปลาซาดีนกระป๋อง" class="w-15 h-15 object-cover zoomable object-center">
+              </div>
+              <div>
+                <h3 class="font-medium text-gray-800">ปลาซาดีนกระป๋อง</h3>
+                <p class="text-sm text-gray-600">อาหารทะเล</p>
+              </div>
+            </div>
+            <div class="food-item border border-gray-200 rounded-md p-3 flex items-center">
+              <div class="food-icon w-12 h-12 rounded-full bg-gray-100 flex items-center justify-center mr-3">
+                <img src="https://img5.pic.in.th/file/secure-sv1/IMG_16774-removebg-preview.png"
+                  alt="ลูกชิ้นหมู/ไก่" class="w-15 h-15 object-cover zoomable object-center">
+              </div>
+              <div>
+                <h3 class="font-medium text-gray-800">ลูกชิ้นหมู/ไก่</h3>
+                <p class="text-sm text-gray-600">เนื้อสัตว์แปรรูป</p>
+              </div>
+            </div>
+    
+            <div class="food-item border border-gray-200 rounded-md p-3 flex items-center">
+              <div class="food-icon w-12 h-12 rounded-full bg-gray-100 flex items-center justify-center mr-3">
+                <img src="https://img5.pic.in.th/file/secure-sv1/Screenshot_2025-01-08_120822-removebg-preview.png"
+                  alt="ไข่ไก่" class="w-15 h-15 object-cover zoomable object-center">
+              </div>
+              <div>
+                <h3 class="font-medium text-gray-800">ไข่ไก่ (ทั้งฟอง)</h3>
+                <p class="text-sm text-gray-600">ไข่</p>
+              </div>
+            </div>
+            <div class="food-item border border-gray-200 rounded-md p-3 flex items-center">
+              <div class="food-icon w-12 h-12 rounded-full bg-gray-100 flex items-center justify-center mr-3">
+                <img 
+            src="https://img2.pic.in.th/pic/Screenshot_2025-01-08_121258-removebg-preview.png"
+                  alt="เต้าหู้แข็ง" class="w-15 h-15 object-cover zoomable object-center">
+              </div>
+              <div>
+                <h3 class="font-medium text-gray-800">เต้าหู้แข็ง</h3>
+                <p class="text-sm text-gray-600">ถั่วเหลือง</p>
+              </div>
+            </div>
+            <div class="food-item border border-gray-200 rounded-md p-3 flex items-center">
+              <div class="food-icon w-12 h-12 rounded-full bg-gray-100 flex items-center justify-center mr-3">
+                <img src="https://img2.pic.in.th/pic/Screenshot_2025-01-08_121459-removebg-preview.png"
+                  alt="เต้าหู้อ่อน" class="w-15 h-15 object-cover zoomable object-center">
+              </div>
+              <div>
+                <h3 class="font-medium text-gray-800">เต้าหู้อ่อน</h3>
+                <p class="text-sm text-gray-600">ถั่วเหลือง</p>
+              </div>
+            </div>
+            <div class="food-item border border-gray-200 rounded-md 
+            p-3 flex items-center">
+              <div class="food-icon w-12 h-12 rounded-full bg-gray-100 flex items-center justify-center mr-3">
+                <img src="https://img2.pic.in.th/pic/Screenshot_2025-01-08_121631-removebg-preview.png"
+                  alt="นมถั่วเหลือง" class="w-15 h-15 object-cover zoomable object-center">
+              </div>
+              <div>
+                <h3 class="font-medium text-gray-800">นมถั่วเหลือง (ไม่หวาน)</h3>
+                <p 
+            class="text-sm text-gray-600">เครื่องดื่ม</p>
+              </div>
+            </div>
+    
+            <div class="food-item border border-gray-200 rounded-md p-3 flex items-center">
+              <div class="food-icon w-12 h-12 rounded-full bg-gray-100 flex items-center justify-center mr-3">
+                <img src="https://img2.pic.in.th/pic/Screenshot_2025-01-08_121756-removebg-preview.png"
+                  alt="ไส้กรอก" class="w-15 h-15 object-cover zoomable object-center">
+              </div>
+              <div>
+                <h3 class="font-medium text-gray-800">ไส้กรอก</h3>
+                <p class="text-sm 
+            text-gray-600">เนื้อสัตว์แปรรูป</p>
+              </div>
+            </div>
+            <div class="food-item border border-gray-200 rounded-md p-3 flex items-center">
+              <div class="food-icon w-12 h-12 rounded-full bg-gray-100 flex items-center justify-center mr-3">
+                <img src="https://img2.pic.in.th/pic/Screenshot_2025-01-08_121925-removebg-preview.png"
+                  alt="เบคอน" class="w-15 h-15 object-cover zoomable object-center">
+              </div>
+              <div>
+              <h3 class="font-medium text-gray-800">เบคอน</h3>
+                    <p class="text-sm text-gray-600">เนื้อสัตว์แปรรูป</p>
+                  </div>
+                </div>
+                <div class="food-item border border-gray-200 rounded-md p-3 flex 
+                items-center">
+                  <div class="food-icon w-12 h-12 rounded-full bg-gray-100 flex items-center justify-center mr-3">
+                    <img src="https://img2.pic.in.th/pic/Screenshot_2025-01-08_122107-removebg-preview.png"
+                      alt="หมูยอ" class="w-15 h-15 object-cover zoomable object-center">
+                  </div>
+                  <div>
+                    <h3 class="font-medium text-gray-800">หมูยอ</h3>
+                    <p class="text-sm text-gray-600">เนื้อสัตว์แปรรูป</p>
+                  </div>
+                </div>
+                <div class="food-item border border-gray-200 rounded-md p-3 flex items-center">
+                  <div class="food-icon w-12 h-12 rounded-full bg-gray-100 flex items-center justify-center mr-3">
+                    <img src="https://img5.pic.in.th/file/secure-sv1/Screenshot_2025-01-08_122237-removebg-preview.png"
+                      alt="กุนเชียง" class="w-15 h-15 object-cover zoomable object-center">
+                  </div>
+                  <div>
+                    <h3 class="font-medium text-gray-800">กุนเชียง</h3>
+                    <p class="text-sm text-gray-600">เนื้อสัตว์แปรรูป</p>
+                  </div>
+                </div>
+              </div>
+            </article>
+          </section>
 
       <section id="recommend-screen" class="screen hidden">
         <article class="mt-4">
@@ -524,7 +773,7 @@
         <section id="version-screen" class="screen hidden">
           <article class="card p-4 mt-4 bg-white dark:bg-gray-700 rounded-lg shadow-md" aria-labelledby="version-screen-title">
             <h2 id="version-screen-title" class="text-xl font-semibold text-gray-800 dark:text-white mb-4">เวอร์ชั่น</h2>
-            <p class="text-gray-700 dark:text-gray-300">เวอร์ชั่น 1.0.0</p>
+            <p class="text-gray-700 dark:text-gray-300">เวอร์ชั่น 1.0.1</p>
             <li class="text-gray-700 dark:text-gray-300">Designed and built with all the love in the world by the <b class="font-bold">Bureau of Digital Health</b> with the help of 
               our contributors.</li>
             <li class="text-gray-700 dark:text-gray-300">© Copyright โรงพยาบาลเปือยน้อย จังหวัดขอนแก่น, 2025. All rights reserved.</li>
@@ -536,7 +785,7 @@
             <h2 id="content-screen-title" class="text-xl font-semibold text-gray-800 dark:text-white mb-4">บทความและข่าวสาร</h2>
             <article>
               <h3 class="text-lg font-semibold text-gray-800 dark:text-white mb-2">โรคไตเรื้อรังคืออะไร?</h3>
-              <img src="https://img2.pic.in.th/pic/1620814642_120564_kidney-disease-removebg-preview.png" alt="ภาพไต" class="object-cover w-full h-auto rounded-md zoomable"> 
+              <img src="https://img2.pic.in.th/pic/1620814642_120564_kidney-disease-removebg-preview.png" alt="ภาพไต" class="object-cover w-200px h-auto rounded-md zoomable"> 
               <p class="text-gray-700 dark:text-gray-300">โรคไตเรื้อรัง (Chronic kidney disease) คือ ภาวะที่ไตทำงานได้ลดลง โดยดูจากค่าอัตราการกรองของไตที่ผิดปกติ <br>
                 (estimated Glomerular Filtration Rate, eGFR) หรือไตมีภาวะผิดปกติ เช่น มีโปรตีนรั่วในปัสสาวะ 
                 หรือมีความผิดปกติทางรังสีวิทยา เป็นต้น ในระยะเวลามากกว่า 3 เดือนขึ้นไป</p>
@@ -753,7 +1002,7 @@
     });
     
     
-      // ข้อมูลสำหรับ Carousel
+    // ข้อมูลสำหรับ Carousel
 const slides = [
   {
     type: "เนื้อสัตว์",
@@ -941,7 +1190,8 @@ const slides = [
         content: `
 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
 
-  <div class="border border-gray-300 p-4">
+  <!-- กล่องข้อมูลผัก -->
+  <div class="border border-gray-300 p-4 rounded-lg">
     <h2 class="text-lg font-bold mb-2">ผัก</h2>
     <p><b><u>ผัก ข.</u> 1 ส่วน</b> ปริมาณสุก 1 ทัพพี หรือ 50 - 70 กรัม</p>
     <p>ผักดิบ 1 ทัพพี หรือ 70 - 100 กรัม</p>
@@ -956,10 +1206,10 @@ const slides = [
       <div>พลังงาน</div>
       <div>25 กิโลแคลอรี</div>
     </div>
-    <hr class="my-4">
+     <hr class="my-4">
     <div class="grid grid-cols-3 gap-2">
-      <div class="col-span-3 flex justify-around">
-                  <img src="https://img5.pic.in.th/file/secure-sv1/Untitledad3e6391895d2d7b.png" alt="กล้วยหอม" class="w-14 h-14 object-cover zoomable">
+      <!-- เพิ่ม class margin/padding ให้เท่ากัน -->
+          <img src="https://img5.pic.in.th/file/secure-sv1/Untitledad3e6391895d2d7b.png" alt="กล้วยหอม" class="w-14 h-14 object-cover zoomable">
           <img src="https://img2.pic.in.th/pic/Untitled198e0d01bf2ff08f4.png" alt="ฝรั่ง (ผลกลาง)" class="w-14 h-14 object-cover zoomable">
           <img src="https://img2.pic.in.th/pic/Untitled2272b6fd0f93dc8af.png" alt="แก้วมังกร" class="w-14 h-14 object-cover zoomable">
           <img src="https://img2.pic.in.th/pic/Untitled3ded372cd55cd064e.png" alt="มะม่วงสุก/ดิบ" class="w-14 h-14 object-cover zoomable">
@@ -989,13 +1239,10 @@ const slides = [
           <img src="https://img5.pic.in.th/file/secure-sv1/Untitled15.png" alt="สับปะรด" class="w-15 h-15 object-cover zoomable">
           <img src="https://img2.pic.in.th/pic/Untitled16.png" alt="มะละกอสุก" class="w-15 h-15 object-cover zoomable">
         </div>
-      </div>
-    </div>
-      </div>
-    </div>
   </div>
 
-  <div class="border border-gray-300 p-4">
+  <!-- กล่องข้อมูลข้อควรระวัง -->
+  <div class="border border-gray-300 p-4 rounded-lg">
     <h2 class="text-lg font-bold mb-2 text-red-500">ข้อควรระวังโพแทสเซียมในผัก</h2>
     <hr class="my-4">
     <div>
@@ -1015,25 +1262,29 @@ const slides = [
   </div>
 
 </div>
-       <div class="mt-4">
-        <h3 class="text-xl font-bold text-center">วิดีโอ</h3>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div class="w-full">
-            <iframe class="w-full aspect-video" src="https://drive.google.com/file/d/1Gu1isCSUYJJbQ-LGbVuoVKgvRGnYsoA_/preview" frameborder="0" allowfullscreen></iframe>
-          </div>
-          <div class="w-full">
-            <iframe class="w-full aspect-video" src="https://drive.google.com/file/d/1GnF8oI5uhRubftQGpVY333l2bc_XFOhE/preview" frameborder="0" allowfullscreen></iframe>
-          </div>
+
+<!-- ส่วนของวิดีโอ -->
+<div class="mt-4">
+  <h3 class="text-xl font-bold text-center">วิดีโอ</h3>
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+    <div class="w-full">
+      <iframe class="w-full aspect-video rounded-lg border border-gray-300" src="https://drive.google.com/file/d/1Gu1isCSUYJJbQ-LGbVuoVKgvRGnYsoA_/preview" frameborder="0" allowfullscreen></iframe>
+    </div>
+    <div class="w-full">
+      <iframe class="w-full aspect-video rounded-lg border border-gray-300" src="https://drive.google.com/file/d/1GnF8oI5uhRubftQGpVY333l2bc_XFOhE/preview" frameborder="0" allowfullscreen></iframe>
+    </div>
   </div>
 </div>
+
         `
       },
       {
         type: "เนื้อสัตว์",
         content: `
-  <div class="grid grid-cols-2 gap-4">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
 
-    <div class="border border-gray-300 p-4">
+  <!-- กล่องข้อมูลผัก -->
+  <div class="border border-gray-300 p-4 rounded-lg">
       <h2 class="text-lg font-bold mb-2">ผัก</h2>
       <p><b><u>ผัก ข.</u> 1 ส่วน</b> ปริมาณสุก 1 ทัพพี หรือ 50 - 70 กรัม</p>
       <p>ผักดิบ 1 ทัพพี หรือ 70 - 100 กรัม</p>
@@ -1264,9 +1515,10 @@ const slides = [
       {
         type: "เนื้อสัตว์",
         content: `
-<div class="grid grid-cols-2 gap-4">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
 
-  <div class="p-4"> 
+  <!-- กล่องข้อมูลผัก -->
+  <div class="border border-gray-300 p-4 rounded-lg">
     <h2 class="text-lg font-bold mb-2">ข้อควรระวังในข้าว/แป้ง</h2>
     <p class="font-bold"><u>โซเดียมสูง</u></p>
     <ul class="list-disc list-inside ml-4">
@@ -1321,9 +1573,10 @@ const slides = [
       {
         type: "เนื้อสัตว์",
         content: `
- <div class="grid grid-cols-2 gap-4">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
 
-    <div class="border border-gray-300 p-4">
+  <!-- กล่องข้อมูลผัก -->
+  <div class="border border-gray-300 p-4 rounded-lg">
       <h2 class="text-lg font-bold mb-2">น้ำมัน</h2>
       <p><b>น้ำมัน</b> 1 ส่วน เท่ากับ 1 ช้อนชา</p>
       <hr class="my-4">
@@ -1568,18 +1821,24 @@ const slides = [
     </div>
   </div>
 
-<div class="mt-4 text-center"> <h3 class="text-xl font-bold">วิดีโอ</h3>
-  <div class="carousel-slide center">
-    <div class="video-container">
+<div class="mt-4 text-center">
+  <h3 class="text-xl font-bold">วิดีโอ</h3>
+  <div class="carousel-slide">
+    <div class="video-container grid grid-cols-1 md:grid-cols-3 gap-4"> 
       <iframe width="250" height="200" src="https://drive.google.com/file/d/1GOqqBFBxFv6HeNdvVUKhKKpNfdj7bFBc/preview" frameborder="0" allowfullscreen></iframe>
       <iframe width="250" height="200" src="https://drive.google.com/file/d/1GLPQcQ6PCv43qPEz8zS8kLBFJrUUuVPP/preview" frameborder="0" allowfullscreen></iframe>
       <iframe width="250" height="200" src="https://drive.google.com/file/d/1GKNjRpA7ZwKr2Rkejpj2rTGYYx4LdanY/preview" frameborder="0" allowfullscreen></iframe>
     </div>
-    <div class="mt-4 text-center"> <h3 class="text-xl font-bold">การอ่านฉลากโภชนาการ</h3>
-    <div class="video-container">
-      <iframe width="250" height="200" src="https://drive.google.com/file/d/1GIVOnsiaBOsYiKPAN7anwCZh3ffFUaKS/preview" frameborder="0" allowfullscreen></iframe>
-      <iframe width="250" height="200" src="https://drive.google.com/file/d/1G8b_fIreDw9zHmM_qpwBFIGXE8FykHra/preview" frameborder="0" allowfullscreen></iframe>
-      <iframe width="250" height="200" src="https://drive.google.com/file/d/1G6Yk4-3DcB7EhnPZZ49HnqHqnRey64nI/preview" frameborder="0" allowfullscreen></iframe>
+  </div>
+
+  <div class="mt-4 text-center">
+    <h3 class="text-xl font-bold">การอ่านฉลากโภชนาการ</h3>
+    <div class="carousel-slide">
+      <div class="video-container grid grid-cols-1 md:grid-cols-3 gap-4">
+        <iframe width="250" height="200" src="https://drive.google.com/file/d/1GIVOnsiaBOsYiKPAN7anwCZh3ffFUaKS/preview" frameborder="0" allowfullscreen></iframe>
+        <iframe width="250" height="200" src="https://drive.google.com/file/d/1G8b_fIreDw9zHmM_qpwBFIGXE8FykHra/preview" frameborder="0" allowfullscreen></iframe>
+        <iframe width="250" height="200" src="https://drive.google.com/file/d/1G6Yk4-3DcB7EhnPZZ49HnqHqnRey64nI/preview" frameborder="0" allowfullscreen></iframe>
+      </div>
     </div>
   </div>
 </div>
@@ -1878,16 +2137,26 @@ const slides = [
           },
           // ... เพิ่มข้อความแปลภาษาอื่นๆ ...
         };
+  
+
+
+// ฟังก์ชันสำหรับเปลี่ยนภาษา
+function googleTranslateElementInit() {
+  new google.translate.TranslateElement({
+    pageLanguage: 'th',
+    includedLanguages: 'th,en',
+    layout: google.translate.TranslateElement.InlineLayout.SIMPLE
+  }, 'google-translate-element');
+
+  // ซ่อนส่วนแปลภาษาที่ address bar
+  const addressBarTranslateElement = document.querySelector('.goog-te-banner-frame');
+  if (addressBarTranslateElement) {
+    addressBarTranslateElement.style.display = 'none';
+  }
+}
     
-        function changeLanguage(lang) {
-          for (const id in translations) {
-            const element = document.getElementById(id);
-            if (element) {
-              element.textContent = translations[id][lang];
-            }
-          }
-        }
-    
+
+
         // ฟังก์ชันสำหรับตรวจสอบคำถามและส่งกลับคำตอบ (ปรับปรุงตรรกะการตอบกลับ)
         function getChatbotResponse(message) {
           // ปรับปรุงตรรกะการตอบกลับ Chatbot ที่นี่
@@ -1923,24 +2192,6 @@ const slides = [
           }
         }
     
-        function googleTranslateElementInit() {
-          new google.translate.TranslateElement({
-            pageLanguage: 'th',
-            layout: google.translate.TranslateElement.InlineLayout.SIMPLE
-          }, 'google-translate-element');
-    
-          // หา element <a> ที่มี class 'goog-te-menu2-item' 
-          const languageLinks = document.querySelectorAll('a.goog-te-menu2-item');
-    
-          // เพิ่ม event listener ให้กับแต่ละ language link
-          languageLinks.forEach(link => {
-            link.addEventListener('click', () => {
-              // ดึงรหัสภาษาจาก attribute 'data-lang'
-              const lang = link.getAttribute('data-lang');
-              changeLanguage(lang);
-            });
-          });
-        }
       </script>
       <script type="text/javascript"
         src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit">
