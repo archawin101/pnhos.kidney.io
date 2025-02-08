@@ -7,313 +7,392 @@
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+  <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
   <style>
-    :root {
-      --primary-color: #f2d7d5;
-      --secondary-color: #d4efdf;
-      --accent-color: #e6b0aa;
-      --bg-color: #f9f1f0;
-      --card-bg: #fff5e7;
-      --text-color: #706c61;
-      --shadow-color: rgba(0, 0, 0, 0.1);
-    }
-
-    body {
-      font-family: 'Kanit', sans-serif;
-      background-color: var(--bg-color);
-      color: var(--text-color);
-      margin: 0;
-      padding: 0;
-    }
-
-    .dark {
-      --bg-color: #121212;
-      --card-bg: #1f2937;
-      --text-color: #ffffff;
-      --shadow-color: rgba(255, 255, 255, 0.1);
-    }
-
-    .container {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 1rem;
-    }
-
-    .card {
-      background-color: var(--card-bg);
-      border-radius: 1rem;
-      box-shadow: 0 4px 8px var(--shadow-color);
-      padding: 1.5rem;
-      margin-bottom: 1rem;
-    }
-
-    .nav-bar {
+    /* CSS for loading icon */
+    #loading-icon {
       position: fixed;
-      top: 0;
-      left: 0;
-      height: 100%;
-      width: 256px;
-      background-color: white;
-      box-shadow: 0 0 10px var(--shadow-color);
-      z-index: 10;
-      padding: 1rem;
-      overflow-y: auto;
-    }
-
-    .dark .nav-bar {
-      background-color: #1f2937;
-    }
-
-    .nav-bar a {
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 1000; /* Ensure it's on top */
       display: flex;
+      justify-content: center;
       align-items: center;
-      padding: 0.75rem 1rem;
-      border-radius: 0.5rem;
-      text-decoration: none;
-      color: var(--text-color);
-      transition: background-color 0.3s, color 0.3s, transform 0.3s;
-      font-weight: 500;
-      transform-style: preserve-3d;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent background */
     }
 
-    .nav-bar a i {
-      margin-right: 1rem;
-      font-size: 1.2rem;
-    }
-
-    .nav-bar li.active a {
-      background-color: var(--primary-color);
-      color: white;
-    }
-
-    .nav-bar li:hover a {
-      background-color: #e2e8f0;
-      transform: rotateY(15deg);
-    }
-
-    .grid-container {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 1rem;
-      padding: 1rem;
-      margin-left: 256px; /* ให้เท่ากับความกว้างของ nav-bar */
-    }
-
-    @media (max-width: 768px) {
-      .nav-bar {
-        position: static;
-        width: 100%;
-        height: auto;
-      }
-
-      .grid-container {
-        margin-left: 0;
-      }
-
-      .nav-bar ul {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: space-around;
-      }
-    }
-
-    .loading {
-      width: 40px;
-      height: 40px;
-      border: 4px solid #3b82f6;
-      border-top-color: transparent;
+  .loading-spinner {
+      border: 8px solid #f3f3f3; /* Light grey */
       border-radius: 50%;
-      animation: spin 1s linear infinite;
-      margin: 2rem auto;
+      border-top: 8px solid #3498db; /* Blue */
+      width: 60px;
+      height: 60px;
+      animation: spin 2s linear infinite;
     }
 
     @keyframes spin {
-      to {
-        transform: rotate(360deg);
-      }
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
     }
+    /*... CSS styles... */
+   /* Navigation Bar styles */
+.nav-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: #ffffff;
+            box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+        }
 
-    .carousel-container {
-      width: 100%;
-      position: relative;
-      overflow: hidden;
-      padding: 20px 0;
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        .nav-list {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            padding: 0.75rem 0;
+            list-style: none;
+        }
+
+        .nav-item {
+            position: relative;
+            transform-style: preserve-3d;
+            perspective: 1000px;
+            cursor: pointer;
+        }
+
+        .nav-link {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-decoration: none;
+            color: #666;
+            transition: all 0.3s ease;
+            transform-style: preserve-3d;
+        }
+
+        .icon-container {
+            position: relative;
+            width: 40px;
+            height: 40px;
+            transform-style: preserve-3d;
+            transition: transform 0.3s ease;
+        }
+
+        .nav-item:hover .icon-container {
+            transform: translateY(-5px) rotateY(20deg);
+        }
+
+        .nav-icon {
+            font-size: 1.5rem;
+            margin-bottom: 4px;
+            position: relative;
+            z-index: 2;
+            transition: all 0.3s ease;
+        }
+
+        .icon-container::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: rgba(59, 130, 246, 0.2);
+            transform: translateZ(-10px) scale(0.9);
+            filter: blur(4px);
+            border-radius: 50%;
+            opacity: 0;
+            transition: all 0.3s ease;
+        }
+
+        .nav-item:hover .icon-container::after {
+            opacity: 1;
+            transform: translateZ(-5px) scale(1.1);
+        }
+
+        .nav-label {
+            font-size: 0.75rem;
+            margin-top: 4px;
+            transition: all 0.3s ease;
+            transform: translateZ(20px);
+        }
+
+        .nav-item:hover .nav-link {
+            color: #3b82f6;
+        }
+
+        .nav-item:hover .nav-icon {
+            text-shadow: 2px 2px 4px rgba(59, 130, 246, 0.3);
+            transform: scale(1.1) translateZ(30px);
+        }
+
+        .nav-item.active .nav-link {
+            color: #3b82f6;
+        }
+
+        .nav-item.active .icon-container {
+            transform: translateY(-5px);
+        }
+
+        .nav-item.active::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 4px;
+            height: 4px;
+            background: #3b82f6;
+            border-radius: 50%;
+        }
+        
+.nav-bar {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background-color: #ffffff;
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    height: auto;
+    padding: 8px 0;
+}
+
+.nav-container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 0 10px;
+}
+
+.nav-list {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.nav-item {
+    flex: 1;
+    text-align: center;
+}
+
+.nav-item a {
+    text-decoration: none;
+    color: #666;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 4px;
+}
+
+.icon-container {
+    margin-bottom: 4px;
+}
+
+.nav-icon {
+    font-size: 20px;
+}
+
+.nav-label {
+    font-size: 12px;
+    white-space: nowrap;
+}
+
+.nav-item.active a {
+    color: #007bff;
+}
+
+/* Add padding to main content to prevent overlap */
+main {
+    padding-bottom: 80px; /* Adjust based on navigation height */
+}
+
+/* Media query for smaller screens */
+@media (max-width: 360px) {
+    .nav-icon {
+        font-size: 18px;
     }
-
-    .swiper-slide {
-      background: var(--card-bg);
-      border-radius: 1rem;
-      padding: 1rem;
-      box-shadow: 0 4px 8px var(--shadow-color);
+    
+    .nav-label {
+        font-size: 10px;
     }
-
-    .carousel-image {
-      width: 100%;
-      height: 200px;
-      object-fit: cover;
-      border-radius: 0.5rem;
+    
+    .nav-container {
+        padding: 0 5px;
     }
+}
+        /* CSS styles for the app */
+        body {
+            font-family: sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            color: #333;
+        }
 
-    .carousel-content {
-      padding: 1rem;
-    }
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+        }
 
-    .swiper-button-next,
-    .swiper-button-prev {
-      color: var(--primary-color) !important;
-    }
+        .card {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
 
-    .swiper-pagination-bullet-active {
-      background: var(--primary-color) !important;
-    }
+        .card-header {
+            padding: 10px 20px;
+            border-bottom: 1px solid #eee;
+        }
 
-    .fade-in {
-      animation: fadeIn 0.5s ease-in;
-    }
+        .card-title {
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
 
-    @keyframes fadeIn {
-      from {
-        opacity: 0;
-        transform: translateY(20px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
+        .card-content {
+            padding: 20px;
+        }
 
-    .carousel-container {
-      width: 100%;
-      position: relative;
-      overflow: hidden;
-      padding: 20px 0;
-    }
+        .form-group {
+            margin-bottom: 15px;
+        }
 
-    .swiper-slide {
-      background: var(--card-bg);
-      border-radius: 1rem;
-      padding: 1rem;
-      box-shadow: 0 4px 8px var(--shadow-color);
-    }
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
 
-    .carousel-image {
-      width: 100%;
-      height: 200px;
-      object-fit: cover;
-      border-radius: 0.5rem;
-    }
+        input[type="number"],
+        select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
 
-    .carousel-content {
-      padding: 1rem;
-      display: flex;
-      flex-direction: column;
-    }
+        button {
+            background-color: #007bff;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
 
-    .swiper-button-next,
-    .swiper-button-prev {
-      color: var(--primary-color) !important;
-      padding: 1rem;
-    }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
 
-    .swiper-pagination-bullet-active {
-      background: var(--primary-color) !important;
-    }
+        th, td {
+            padding: 8px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        .video-wrapper {
+  position: relative; /* Required for pseudo-element positioning */
+  border-radius: 8px; /* Rounded corners */
+  overflow: hidden; /* Prevents iframe from overflowing rounded corners */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  transition: transform 0.2s ease-in-out; /* Smooth transform */
+}
 
-    @media (max-width: 768px) {
-      .carousel-container {
-        padding: 10px;
-      }
-      .swiper-slide {
-        padding: 0.5rem;
-      }
-      .carousel-image {
-        height: 150px;
-      }
-      .carousel-content h2 {
-        font-size: 1.2rem;
-      }
-      .carousel-content p {
-        font-size: 0.9rem;
-      }
-    }
+.video-wrapper:hover {
+  transform: scale(1.05); /* Scale up slightly on hover */
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15); /* More prominent shadow on hover */
+}
 
-    .language-toggle {
-      margin-top: 1rem;
-    }
+.video-wrapper::before {  /* Play icon overlay */
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 60px;
+  height: 60px;
+  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black */
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  transition: opacity 0.2s ease-in-out;
+}
 
-    .language-button {
-      display: flex;
-      align-items: center;
-      background-color: #f0f0f0;
-      border: none;
-      color: #333;
-      padding: 0.5rem 1rem;
-      border-radius: 0.5rem;
-      font-weight: 500;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    }
+.video-wrapper:hover::before {
+  opacity: 1;
+}
 
-    .language-button:hover {
-      background-color: #e0e0e0;
-      transform: translateY(-2px);
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
-    }
+.video-wrapper::before { /* Play Icon (using a character)*/
+  content: "\25B9"; /* Unicode for a right-pointing triangle */
+  font-size: 30px;
+  color: white;
+}
 
-    .language-button.active {
-      background-color: #4CAF50;
-      color: white;
-    }
-
-    .language-button img {
-      width: 24px;
-      height: 24px;
-      margin-right: 0.5rem;
-    }
-
-    .language-button span {
-      font-weight: 600;
-    }
-
-    .goog-te-gadget-simple > img, 
-    .goog-te-gadget-simple > span > a > span:last-child {
-      display: none !important;
-    }
-
-    .goog-te-gadget-simple {
-      display: inline-flex;
-      align-items: center;
-      background-color: #f0f0f0;
-      border: none;
-      color: #333;
-      padding: 0.5rem 1rem;
-      border-radius: 5px;
-      font-weight: 500;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    }
-
-    .goog-te-gadget-simple:hover {
-      background-color: #e0e0e0;
-      transform: translateY(-2px);
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
-    }
-
-    .goog-te-gadget-simple > span > a {
-      text-decoration: none;
-      color: inherit;
-    }
-
-    .goog-te-gadget-simple > span > a > span:first-child {
-      margin-right: 0.5rem;
-    }
+/* Optional: Style the iframe itself, if needed */
+.video-wrapper iframe {
+  border-radius: inherit; /* Inherit rounded corners from parent */
+  width: 100%;
+  height: 100%;
+  display: block; /* Prevents a small gap below the iframe */
+}
+header {  /* หรือ.mb-4 */
+  display: flex;
+  flex-direction: column; /* จัดเรียง element เป็นแนวตั้ง */
+  align-items: center; /* จัดกึ่งกลางแนวนอน */
 
 
+  transition: transform 0.3s ease; /* เพิ่ม transition */
+}.logo-container img:hover {
+  transform: perspective(1000px) rotateY(20deg) scale(1.1); /* หมุนและขยายเมื่อ hover */
+}
+
+h1 { /* Effect สำหรับตัวหนังสือ */
+  text-shadow: 
+    2px 2px 4px rgba(0, 0, 0, 0.3), /* เงา */
+    -2px -2px 4px rgba(255, 255, 255, 0.2); /* เงา */
+  transform: perspective(800px) translateZ(20px); /* ยกตัวหนังสือขึ้น */
+  transition: transform 0.3s ease; /* เพิ่ม transition */
+}
+
+h1:hover {
+  transform: perspective(800px) translateZ(30px); /* ยกตัวหนังสือขึ้นเมื่อ hover */
+}
+.loading-kidney {
+    width: 60px; /* ปรับขนาดได้ตามต้องการ */
+    height: 60px;
+    animation: spin 5s linear infinite;
+  }
+
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+    </style>
+      </style>
+</body>
   </style>
 </head>
 <body>
+
+  <div id="loading-icon">
+    <img src="https://cdn-icons-png.flaticon.com/512/11292/11292287.png" alt="Loading..." class="loading-kidney">
+  </div>
   <div class="container mx-auto p-4">
     <header class="mb-4">
       <div class="logo-container flex justify-center items-center mb-4">
@@ -325,9 +404,11 @@
       <h1 class="text-3xl font-bold text-center text-gray-800 dark:text-white mb-4">
         ชะลอไต ด้วยอาหาร
       </h1>
+  
+      <img src="https://img2.pic.in.th/pic/kidney-stone-unscreen.gif" width="100" height="100" alt="" title="" class="img-small">
     </header>
 
-    <main id="app" class="md:ml-64">
+    <main id="app">
       <section id="home-screen" class="screen">
         <article class="card p-4 bg-white dark:bg-gray-700 rounded-lg shadow-md">
           <h2 class="text-xl font-semibold text-gray-800 dark:text-white mb-4">ยินดีต้อนรับสู่โปรแกรมคำนวณโภชนาการ</h2>
@@ -340,136 +421,128 @@
         </article>
       </section>
 
-      <section id="calculate-screen" class="screen hidden grid grid-cols-1 md:grid-cols-2 gap-4">
-        <article class="card p-4 bg-white dark:bg-gray-700 rounded-lg shadow-md" aria-labelledby="calculate-screen-title">
-          <h2 id="calculate-screen-title" class="text-xl font-semibold text-gray-800 dark:text-white mb-4">คำนวณโภชนาการ</h2>
-          <form id="nutritionForm" class="space-y-4">
-            <div class="gender-select flex justify-center">
-              <label
-                class="gender-option bg-gray-200 dark:bg-gray-600 hover:bg-blue-500 hover:text-white p-3 rounded-md cursor-pointer transition-colors"
-                onclick="selectGender('male')">
-                <input type="radio" name="gender  value="male" checked class="hidden">
-                <i class="fas fa-mars mr-2"></i> ชาย
-              </label>
-              <label
-                class="gender-option bg-gray-200 dark:bg-gray-600 hover:bg-blue-500 hover:text-white p-3 rounded-md cursor-pointer transition-colors ml-4"
-                onclick="selectGender('female')">
-                <input type="radio" name="gender" value="female" class="hidden">
-                <i class="fas fa-venus mr-2"></i> หญิง
-              </label>
+      <section id="calculate-screen" class="screen hidden">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4"> 
+          <article class="card p-4 bg-white dark:bg-gray-700 rounded-lg shadow-md" aria-labelledby="calculate-screen-title">
+            <h2 id="calculate-screen-title" class="text-xl font-semibold text-gray-800 dark:text-white mb-4">คำนวณโภชนาการ</h2>
+            <form id="nutritionForm" class="space-y-4">
+              <div class="gender-select flex justify-center">
+                <label class="gender-option bg-gray-200 dark:bg-gray-600 hover:bg-blue-500 hover:text-white p-3 rounded-md cursor-pointer transition-colors" onclick="selectGender('male')">
+                  <input type="radio" name="gender" value="male" checked class="hidden">
+                  <i class="fas fa-mars mr-2"></i> ชาย
+                </label>
+                <label class="gender-option bg-gray-200 dark:bg-gray-600 hover:bg-blue-500 hover:text-white p-3 rounded-md cursor-pointer transition-colors ml-4" onclick="selectGender('female')">
+                  <input type="radio" name="gender" value="female" class="hidden">
+                  <i class="fas fa-venus mr-2"></i> หญิง
+                </label>
+              </div>
+              <div class="form-group">
+                <label for="age" class="block text-gray-700 dark:text-gray-300 font-medium mb-2">อายุ (ปี)</label>
+                <input type="number" id="age" name="age" min="0" required class="w-full border border-gray-300 dark:border-gray-600 px-3 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                <div class="error-message text-red-500 text-sm mt-1 hidden" id="ageError">กรุณากรอกอายุ</div>
+              </div>
+              <div class="form-group">
+                <label for="weight" class="block text-gray-700 dark:text-gray-300 font-medium mb-2">น้ำหนัก (กก.)</label>
+                <input type="number" id="weight" name="weight" step="0.1" required class="w-full border border-gray-300 dark:border-gray-600 px-3 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                <div class="error-message text-red-500 text-sm mt-1 hidden" id="weightError">กรุณากรอกน้ำหนัก</div>
+              </div>
+              <div class="form-group">
+                <label for="height" class="block text-gray-700 dark:text-gray-300 font-medium mb-2">ส่วนสูง (ซม.)</label>
+                <input type="number" id="height" name="height" step="0.1" required class="w-full border border-gray-300 dark:border-gray-600 px-3 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                <div class="error-message text-red-500 text-sm mt-1 hidden" id="heightError">กรุณากรอกส่วนสูง</div>
+              </div>
+              <div class="form-group">
+                <label for="phase" class="block text-gray-700 dark:text-gray-300 font-medium mb-2">ระยะ</label>
+                <select id="phase" name="phase" class="w-full border border-gray-300 dark:border-gray-600 px-3 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                  <option value="1">ระยะที่ 1</option>
+                  <option value="2">ระยะที่ 2</option>
+                  <option value="3a">ระยะที่ 3a</option>
+                  <option value="3b">ระยะที่ 3b</option>
+                  <option value="4">ระยะที่ 4</option>
+                  <option value="5">ระยะที่ 5</option>
+                </select>
+              </div>
+              <button type="button" onclick="calculateNutrition()" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                คำนวณ
+              </button>
+            </form>
+          </article>
+      
+          <article class="card p-4 bg-white dark:bg-gray-700 rounded-lg shadow-md" aria-labelledby="result-screen-title">
+            <h2 id="result-screen-title" class="text-xl font-semibold text-gray-800 dark:text-white mb-4">ผลลัพธ์</h2>
+            <div class="results-section space-y-4">
+              <div class="portion-display bg-gray-100 dark:bg-gray-600 p-3 rounded-md">
+                <span class="font-bold text-gray-800 dark:text-white">ปริมาณโปรตีนที่แนะนำต่อวัน:</span>
+                <span id="gramsPerDay" class="ml-2 text-gray-800 dark:text-white"></span>
+              </div>
+              <div class="portion-display bg-gray-100 dark:bg-gray-600 p-3 rounded-md">
+                <span class="font-bold text-gray-800 dark:text-white">ปริมาณโปรตีนที่แนะนำต่อมื้อ:</span>
+                <span id="gramsPerMeal" class="ml-2 text-gray-800 dark:text-white"></span>
+              </div>
+              <div class="portion-display bg-gray-100 dark:bg-gray-600 p-3 rounded-md">
+                <span class="font-bold text-gray-800 dark:text-white">ช้อนกินข้าวต่อวัน:</span>
+                <span id="spoonsPerDay" class="ml-2 text-gray-800 dark:text-white"></span>
+              </div>
+              <div class="portion-display bg-gray-100 dark:bg-gray-600 p-3 rounded-md">
+                <span class="font-bold text-gray-800 dark:text-white">ช้อนกินข้าวต่อมื้อ:</span>
+                <span id="spoonsPerMeal" class="ml-2 text-gray-800 dark:text-white"></span>
+              </div>
             </div>
-            <div class="form-group">
-              <label for="age" class="block text-gray-700 dark:text-gray-300 font-medium mb-2">อายุ (ปี)</label>
-              <input type="number" id="age" name="age" min="0" required
-                class="w-full border border-gray-300 dark:border-gray-600 px-3 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
-              <div class="error-message text-red-500 text-sm mt-1 hidden" id="ageError">กรุณากรอกอายุ</div>
-            </div>
-            <div class="form-group">
-              <label for="weight" class="block text-gray-700 dark:text-gray-300 font-medium mb-2">น้ำหนัก (กก.)</label>
-              <input type="number" id="weight" name="weight" step="0.1" required
-                class="w-full border border-gray-300 dark:border-gray-600 px-3 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
-              <div class="error-message text-red-500 text-sm mt-1 hidden" id="weightError">กรุณากรอกน้ำหนัก</div>
-            </div>
-            <div class="form-group">
-              <label for="height" class="block text-gray-700 dark:text-gray-300 font-medium mb-2">ส่วนสูง (ซม.)</label>
-              <input type="number" id="height" name="height" step="0.1" required
-                class="w-full border border-gray-300 dark:border-gray-600 px-3 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
-              <div class="error-message text-red-500 text-sm mt-1 hidden" id="heightError">กรุณากรอกส่วนสูง</div>
-            </div>
-            <div class="form-group">
-              <label for="phase" class="block text-gray-700 dark:text-gray-300 font-medium mb-2">ระยะ</label>
-              <select id="phase" name="phase"
-                class="w-full border border-gray-300 dark:border-gray-600 px-3 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
-                <option value="1">ระยะที่ 1</option>
-                <option value="2">ระยะที่ 2</option>
-                <option value="3a">ระยะที่ 3a</option>
-                <option value="3b">ระยะที่ 3b</option>
-                <option value="4">ระยะที่ 4</option>
-                <option value="5">ระยะที่ 5</option>
-              </select>
-            </div>
-            <button type="button" onclick="calculateNutrition()"
-              class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
-              คำนวณ
-            </button>
-          </form>
-        </article>
-
-        <article class="card p-4 bg-white dark:bg-gray-700 rounded-lg shadow-md ml-4" aria-labelledby="result-screen-title">
-          <h2 id="result-screen-title" class="text-xl font-semibold text-gray-800 dark:text-white mb-4">ผลลัพธ์</h2>
-          <div class="results-section space-y-4">
-            <div class="portion-display bg-gray-100 dark:bg-gray-600 p-3 rounded-md">
-              <span class="font-bold text-gray-800 dark:text-white">ปริมาณโปรตีนที่แนะนำต่อวัน:</span>
-              <span id="gramsPerDay" class="ml-2 text-gray-800 dark:text-white"></span>
-            </div>
-            <div class="portion-display bg-gray-100 dark:bg-gray-600 p-3 rounded-md">
-              <span class="font-bold text-gray-800 dark:text-white">ปริมาณโปรตีนที่แนะนำต่อมื้อ:</span>
-              <span id="gramsPerMeal" class="ml-2 text-gray-800 dark:text-white"></span>
-            </div>
-            <div class="portion-display bg-gray-100 dark:bg-gray-600 p-3 rounded-md">
-              <span class="font-bold text-gray-800 dark:text-white">ช้อนกินข้าวต่อวัน:</span>
-              <span id="spoonsPerDay" class="ml-2 text-gray-800 dark:text-white"></span>
-            </div>
-            <div class="portion-display bg-gray-100 dark:bg-gray-600 p-3 rounded-md">
-              <span class="font-bold text-gray-800 dark:text-white">ช้อนกินข้าวต่อมื้อ:</span>
-              <span id="spoonsPerMeal" class="ml-2 text-gray-800 dark:text-white"></span>
-            </div>
+          </article>
+        </div>
+      
+        <article class="card p-4 bg-white dark:bg-gray-700 rounded-lg shadow-md w-full">
+          <h2 class="text-xl font-semibold text-gray-800 dark:text-white mb-4">ตารางเปรียบเทียบระยะโรคไต</h2>
+          <div class="w-full overflow-x-auto">
+            <table class="w-full border-collapse">
+              <thead>
+                <tr>
+                  <th class="bg-blue-500 text-white px-4 py-2 whitespace-normal">ระยะ</th>
+                  <th class="bg-blue-500 text-white px-4 py-2 whitespace-normal">eGFR<br>(มล./นาที/1.73 ตร.ม.)</th>
+                  <th class="bg-blue-500 text-white px-4 py-2 whitespace-normal">ปริมาณโปรตีน<br>(กรัม/น้ำหนักตัว 1 กิโลกรัม)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="border px-4 py-2 text-center">ระยะที่ 1</td>
+                  <td class="border px-4 py-2 text-center">มากกว่าหรือเท่ากับ 90</td>
+                  <td class="border px-4 py-2 text-center">0.8 - 1 กรัม</td>
+                </tr>
+                <tr>
+                  <td class="border px-4 py-2 text-center bg-gray-50">ระยะที่ 2</td>
+                  <td class="border px-4 py-2 text-center bg-gray-50">60 - 89</td>
+                  <td class="border px-4 py-2 text-center bg-gray-50">0.8 - 1 กรัม</td>
+                </tr>
+                <tr>
+                  <td class="border px-4 py-2 text-center">ระยะที่ 3a</td>
+                  <td class="border px-4 py-2 text-center">45 - 59</td>
+                  <td class="border px-4 py-2 text-center">0.8 - 1 กรัม</td>
+                </tr>
+                <tr>
+                  <td class="border px-4 py-2 text-center bg-gray-50">ระยะที่ 3b</td>
+                  <td class="border px-4 py-2 text-center bg-gray-50">30 - 44</td>
+                  <td class="border px-4 py-2 text-center bg-gray-50">0.6 - 0.8 กรัม</td>
+                </tr>
+                <tr>
+                  <td class="border px-4 py-2 text-center">ระยะที่ 4</td>
+                  <td class="border px-4 py-2 text-center">15 - 29</td>
+                  <td class="border px-4 py-2 text-center">0.6 - 0.8 กรัม</td>
+                </tr>
+                <tr>
+                  <td class="border px-4 py-2 text-center bg-gray-50">ระยะที่ 5</td>
+                  <td class="border px-4 py-2 text-center bg-gray-50">น้อยกว่า 15</td>
+                  <td class="border px-4 py-2 text-center bg-gray-50">0.6 กรัม</td>
+                </tr>
+              </tbody>
+            </table>
           </div>
         </article>
       </section>
 
-      <section id="table-screen" class="screen hidden">
-        <article class="card p-4 mt-4 bg-white dark:bg-gray-700 rounded-lg shadow-md" aria-labelledby="table-screen-title">
-          <h2 id="table-screen-title" class="text-xl font-semibold text-gray-800 dark:text-white mb-4">ตารางเปรียบเทียบระยะโรคไต</h2>
-          <table class="comparison-table w-full border-collapse">
-            <thead>
-              <tr>
-                <th class="bg-blue-500 text-white px-4 py-2">ระยะ</th>
-                <th class="bg-blue-500 text-white px-4 py-2">eGFR<br>(มล./นาที/1.73 ตร.ม.)</th>
-                <th class="bg-blue-500 text-white px-4 py-2">ปริมาณโปรตีน<br>(กรัม/น้ำหนักตัว 1 กิโลกรัม)</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td class="border px-4 py-2 text-center">ระยะที่ 1</td>
-                <td class="border px-4 py-2 text-center">มากกว่าหรือเท่ากับ 90</td>
-                <td class="border px-4 py-2 text-center">0.8 - 1 กรัม</td>
-              </tr>
-              <tr>
-                <td class="border px-4 py-2 text-center bg-gray-100 dark:bg-gray-600">ระยะที่ 2</td>
-                <td class="border px-4 py-2 text-center bg-gray-100 dark:bg-gray-600">60 - 89</td>
-                <td class="border px-4 py-2 text-center bg-gray-100 dark:bg-gray-600">0.8 - 1 กรัม</td>
-              </tr>
-              <tr>
-                <td class="border px-4 py-2 text-center">ระยะที่ 3a</td>
-                <td class="border px-4 py-2 text-center">45 - 59</td>
-                <td class="border px-4 py-2 text-center">0.8 - 1 กรัม</td>
-              </tr>
-              <tr>
-                <td class="border px-4 py-2 text-center bg-gray-100 dark:bg-gray-600">ระยะที่ 3b</td>
-                <td class="border px-4 py-2 text-center bg-gray-100 dark:bg-gray-600">30 - 44</td>
-                <td class="border px-4 py-2 text-center bg-gray-100 dark:bg-gray-600">0.6 - 0.8 กรัม</td>
-              </tr>
-              <tr>
-                <td class="border px-4 py-2 text-center">ระยะที่ 4</td>
-                <td class="border px-4 py-2 text-center">15 - 29</td>
-                <td class="border px-4 py-2 text-center">0.6 - 0.8 กรัม</td>
-              </tr>
-              <tr>
-                <td class="border px-4 py-2 text-center bg-gray-100 dark:bg-gray-600">ระยะที่ 5</td>
-                <td class="border px-4 py-2 text-center bg-gray-100 dark:bg-gray-600">น้อยกว่า 15</td>
-                <td class="border px-4 py-2 text-center bg-gray-100 dark:bg-gray-600">0.6 กรัม</td>
-              </tr>
-            </tbody>
-          </table>
-        </article>
-      </section>
-
-      <section id="food-screen" class="screen hidden">
-        <article class="card p-4 mt-4 ml-4" aria-labelledby="food-screen-title">
+      <section id="food-recommend-screen" class="screen hidden">
+        <article class="card p-4 mt-4" aria-labelledby="food-screen-title">
           <h2 id="food-screen-title" class="text-xl font-semibold text-gray-800 mb-4">ตัวอย่างอาหาร (1 ช้อนกินข้าว)</h2>
           <div class="food-grid grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-    
             <div class="food-item border border-gray-200 rounded-md p-3 flex items-center">
               <div class="food-icon w-12 h-12 rounded-full bg-gray-100 flex items-center justify-center mr-3">
                 <img src="https://img2.pic.in.th/pic/-17c916a15f6d8590cb.png"
@@ -629,291 +702,207 @@
                     <h3 class="font-medium text-gray-800">กุนเชียง</h3>
                     <p class="text-sm text-gray-600">เนื้อสัตว์แปรรูป</p>
                   </div>
+            </div>
+          </article>
+
+          <article class="mt-4">
+            <h2 class="text-2xl font-bold text-center text-gray-800 dark:text-white mb-4">
+              แนะนำอาหารสำหรับผู้ป่วยโรคไต
+            </h2>
+
+      
+
+            <div id="carousel" class="relative w-full max-w-5xl mx-auto mt-4"> 
+              <div id="carouselContent" class="relative"></div>
+
+              <div class="absolute top-1/2 transform -translate-y-1/2 w-full flex justify-between px-4 z-10">
+                  <button id="prevBtn" aria-label="Previous Slide" class="bg-white/70 rounded-full p-3 hover:bg-white shadow-md transition">
+                    <i class="fas fa-chevron-left text-gray-700 text-xl"></i>
+                  </button>
+                  <button id="nextBtn" aria-label="Next Slide" class="bg-white/70 rounded-full p-3 hover:bg-whitehadow-md transition">
+                    <i class="fas fa-chevron-right text-gray-700 text-xl"></i>
+                  </button>
+                </div>
+  
+                <div id="slideIndicator" class="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2 z-10">
                 </div>
               </div>
             </article>
           </section>
-
-      <section id="recommend-screen" class="screen hidden">
-        <article class="mt-4">
-          <h2 class="text-2xl font-bold text-center text-gray-800 dark:text-white mb-4">
-            แนะนำอาหารสำหรับผู้ป่วยโรคไต
-          </h2>
-
-          <div class="card p-4 bg-white dark:bg-gray-700 rounded-lg shadow-md">
-            <div class="recommend-section space-y-4">
-              <h3 class="text-xl font-semibold text-gray-800 dark:text-white">หลักการทั่วไปในการเลือกอาหาร</h3>
-              <ul class="list-disc list-inside space-y-2 text-gray-700 dark:text-gray-300">
-                <li>จำกัดปริมาณโปรตีน: เลือกรับประทานเนื้อสัตว์ไม่ติดมัน เช่น เนื้อปลา อกไก่
-                  และจำกัดปริมาณโปรตีนจากพืชตระกูลถั่ว</li>
-                <li>ควบคุมปริมาณโซเดียม: หลีกเลี่ยงอาหารรสเค็มจัด เช่น อาหารแปรรูป อาหารหมักดอง และปรุงอาหารโดยใช้เครื่องปรุงรสให้น้อยที่สุด</li>
-                <li>ควบคุมปริมาณฟอสฟอรัส: จำกัดอาหารที่มีฟอสฟอรัสสูง เช่น นม ชีส ถั่ว ธัญพืช เครื่องดื่มอัดลม และช็อกโกแลต</li>
-                <li>ควบคุมปริมาณโพแทสเซียม: จำกัดอาหารที่มีโพแทสเซียมสูง เช่น กล้วย ส้ม มะเขือเทศ มันฝรั่ง และผักใบเขียวเข้ม</li>
-                <li>เลือกทานอาหารที่มีไขมันต่ำ: เลือกใช้น้ำมันพืช เช่น น้ำมันมะกอก น้ำมันรำข้าว ในการปรุงอาหาร และหลีกเลี่ยงอาหารทอด
-                  อาหารมัน</li>
-                <li>จำกัดปริมาณน้ำตาล: หลีกเลี่ยงขนมหวาน น้ำหวาน และเครื่องดื่มที่มีน้ำตาลสูง</li>
-                <li>ดื่มน้ำในปริมาณที่เหมาะสม: ปรึกษาแพทย์เพื่อทราบปริมาณน้ำที่เหมาะสมกับสภาวะของร่างกาย</li>
-              </ul>
-
-              <h3 class="text-xl font-semibold text-gray-800 dark:text-white">อาหารที่แนะนำ</h3>
-              <ul class="list-disc list-inside space-y-2 text-gray-700 dark:text-gray-300">
-                <li>ข้าว แป้ง ธัญพืช (ไม่ขัดสี): เช่นข้าวกล้อง ขนมปังโฮลวีต วุ้นเส้น</li>
-                <li>ผักใบเขียว และผักอื่นๆ ที่มีโพแทสเซียมต่ำ: เช่น ผักกาดขาว กะหล่ำปลี แตงกวา ฟักทอง</li>
-                <li>ผลไม้ที่มีโพแทสเซียมต่ำ: เช่น แอปเปิ้ล เบอร์รี่ องุ่น สับปะรด</li>
-                <li>เนื้อปลา เนื้อไก่ ไข่ขาว (จำกัดปริมาณ): ควรเลือกเนื้อสัตว์ไม่ติดมัน และจำกัดปริมาณตามคำแนะนำของแพทย์</li>
-                <li>เต้าหู้ ถั่วเหลือง (จำกัดปริมาณ): เป็นแหล่งโปรตีนที่ดี
-                  แต่ควรจำกัดปริมาณเนื่องจากมีฟอสฟอรัสสูง</li>
-              </ul>
-
-              <h3 class="text-xl font-semibold text-gray-800 dark:text-white">อาหารที่ควรจำกัด</h3>
-              <ul class="list-disc list-inside space-y-2 text-gray-700 dark:text-gray-300">
-                <li>เนื้อสัตว์ติดมัน เครื่องในสัตว์: มีไขมันและคอเลสเตอรอลสูง</li>
-                <li>อาหารแปรรูป: เช่น ไส้กรอก เบคอน แฮม กุนเชียง มีโซเดียมสูง</li>
-                <li>อาหารหมักดอง: เช่น ผักดอง ผลไม้ดอง มีโซเดียมสูง</li>
-                <li>อาหารรสเค็มจัด: เช่น น้ำปลา ซีอิ๊ว ซุปก้อน ควรจำกัดปริมาณ</li>
-                <li>ขนมหวาน น้ำหวาน: มีน้ำตาลสูง ส่งผลเสียต่อสุขภาพโดยรวม</li>
-                <li>ผักและผลไม้บางชนิด: เช่น กล้วย ส้ม มะเขือเทศ มันฝรั่ง ผักโขม มีโพแทสเซียมสูง</li>
-                <li>เครื่องดื่มบางชนิด: เช่น นม เครื่องดื่มอัดลม ชา กาแฟ โกโก้ มีฟอสฟอรัสสูง</li>
-              </ul>
-
-              <h3 class="text-xl font-semibold text-gray-800 dark:text-white">ตัวอย่างเมนูอาหาร</h3>
-              <ul class="list-disc list-inside space-y-2 text-gray-700 dark:text-gray-300">
-                <li>ข้าวต้มปลา: ใช้ปลาไม่ติดมัน เช่น ปลาทู ปลาดอลลี่</li>
-                <li>แกงจืดผักกาดขาว: ใส่หมูสับไม่ติดมัน และจำกัดปริมาณน้ำปลา</li>
-                <li>ไข่ตุ๋นทรงเครื่อง: ใช้ไข่ขาว และใส่เนื้อสัตว์ไม่ติดมัน เช่น อกไก่
-                  กุ้ง</li>
-                <li>สลัดอกไก่: ใช้อกไก่ต้ม และเลือกผักที่มีโพแทสเซียมต่ำ เช่น ผักกาดแก้ว แตงกวา</li>
-                <li>ยำวุ้นเส้น: ใส่เนื้อสัตว์ไม่ติดมัน เช่น กุ้ง ปลาหมึก และจำกัดปริมาณน้ำปลา</li>
-                <li>ผัดผักรวมมิตร: เลือกผักที่มีโพแทสเซียมต่ำ เช่น แครอท บรอกโคลี ดอกกะหล่ำ</li>
-              </ul>
-            </div>
-          </div>
-
-          <div id="carousel" class="relative w-full max-w-5xl mx-auto mt-4"> 
-            <div id="carouselContent" class="relative"></div>
-
-            <div class="absolute top-1/2 transform -translate-y-1/2 w-full flex justify-between px-4 z-10">
-                <button id="prevBtn" aria-label="Previous Slide"
-                  class="bg-white/70 rounded-full p-3 hover:bg-white shadow-md transition">
-                  <i class="fas fa-chevron-left text-gray-700 text-xl"></i>
-                </button>
-                <button id="nextBtn" aria-label="Next Slide"
-                  class="bg-white/70 rounded-full p-3 hover:bg-white shadow-md transition">
-                  <i class="fas fa-chevron-right text-gray-700 text-xl"></i>
-                </button>
-              </div>
   
-              <div id="slideIndicator" class="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2 z-10">
-              </div>
-            </div>
-          </article>
-        </section>
-  
-        <section id="reference-screen" class="screen hidden">
-          <article class="card p-4 mt-4 bg-white dark:bg-gray-700 rounded-lg shadow-md" aria-labelledby="reference-screen-title">
-            <h2 id="reference-screen-title" class="text-xl font-semibold text-gray-800 dark:text-white mb-4">อ้างอิง</h2>
-            <div class="reference-section">
-              <h3 class="text-lg font-semibold text-gray-800 dark:text-white mb-2">ที่มาของข้อมูล</h3>
-              <ul class="list-disc list-inside space-y-2 text-gray-700 dark:text-gray-300">
-                <li>มหาวิทยาลัยมหิดล. (2560). โภชนาการสำหรับผู้ป่วยโรคไตเรื้อรัง. (พิมพ์ครั้งที่ 1).
-                  สำนักพิมพ์ ไอดี แอล ดิจิตอล พริ้นซ์ จำกัด</li>
-                <li>สมาคมโรคเบาหวานแห่งประเทศไทย ในพระราชูปถัมภ์สมเด็จพระเทพ- รัตนราชสุดาฯ สยามบรมราชกุมารีและคณะ.
-                  (2560)<br> รู้จักคาร์บ รู้จักนับ ปรับสมดุล ควบคุมเบาหวาน, บริษัท คอนเซ็นท์ เมดิคัส จำกัด, กรุงเทพฯ.</li>
-  
-              </ul>
-              <h3 class="text-lg font-semibold text-gray-800 dark:text-white mt-4 mb-2">รายชื่อผู้พัฒนา</h3>
-              <ul class="list-disc list-inside space-y-2 text-gray-700 dark:text-gray-300">
-                <li>นายภานุวัฒน์ สวัสดิ์วอ ตำแหน่ง นักโภชนาการ</li>
-                <li>นางสาวมุกดา แทนสอ ตำแหน่ง เจ้าพนักงานเครื่องคอมพิวเตอร์</li>
-                <li>นายวีระยุทธ อุทัยกัน ตำแหน่ง นักพัฒนาเว็บไซต์ Developer</li>
-              </ul>
-  
-              <h3 class="text-lg font-semibold text-gray-800 dark:text-white mt-4 mb-2">นโยบายการใช้คุกกี้ (Cookies)</h3>
-              <div class="cookie-policy text-gray-700 dark:text-gray-300">
-                <p>เว็บไซต์นี้ใช้คุกกี้เพื่อปรับปรุงประสบการณ์การใช้งานของคุณ
-                  โดยการใช้เว็บไซต์นี้ต่อไป ถือว่าคุณยอมรับการใช้คุกกี้ของเรา</p>
-                <p>คุกกี้ที่เราใช้มีดังนี้:</p>
-                <ul class="list-disc list-inside space-y-2">
-                  <li>**คุกกี้ที่จำเป็น**: คุกกี้เหล่านี้จำเป็นสำหรับการทำงานพื้นฐานของเว็บไซต์</li>
-                  <li>**คุกกี้เพื่อการวิเคราะห์**: คุกกี้เหล่านี้ช่วยให้เราเข้าใจว่าผู้ใช้ใช้งานเว็บไซต์ของเราอย่างไร</li>
+          <section id="reference-screen" class="screen hidden">
+            <article class="card p-4 mt-4 bg-white dark:bg-gray-700 rounded-lg shadow-md" aria-labelledby="reference-screen-title">
+              <h2 id="reference-screen-title" class="text-xl font-semibold text-gray-800 dark:text-white mb-4">อ้างอิง</h2>
+              <div class="reference-section">
+                <h3 class="text-lg font-semibold text-gray-800 dark:text-white mb-2">ที่มาของข้อมูล</h3>
+                <ul class="list-disc list-inside space-y-2 text-gray-700 dark:text-gray-300">
+                  <li>มหาวิทยาลัยมหิดล. (2560). โภชนาการสำหรับผู้ป่วยโรคไตเรื้อรัง. (พิมพ์ครั้งที่ 1).
+                    สำนักพิมพ์ ไอดี แอล ดิจิตอล พริ้นซ์ จำกัด</li>
+                  <li>สมาคมโรคเบาหวานแห่งประเทศไทย ในพระราชูปถัมภ์สมเด็จพระเทพ- รัตนราชสุดาฯ สยามบรมราชกุมารีและคณะ.
+                    (2560)<br> รู้จักคาร์บ รู้จักนับ ปรับสมดุล ควบคุมเบาหวาน, บริษัท คอนเซ็นท์ เมดิคัส จำกัด, กรุงเทพฯ.</li>
                 </ul>
-                <p>คุณสามารถดูข้อมูลเพิ่มเติมเกี่ยวกับคุกกี้ได้ที่
-                  <a href="[https://www.allaboutcookies.org/](https://www.allaboutcookies.org/)" target="_blank"
-                    rel="noopener noreferrer" class="text-blue-500 hover:underline">www.allaboutcookies.org</a>
-                </p>
-              </div>
-            </div>
-          </article>
-        </section>
-  
-        <section id="settings-screen" class="screen hidden">
-          <article class="card p-4 mt-4 bg-white dark:bg-gray-700 rounded-lg shadow-md" aria-labelledby="settings-screen-title">
-            <h2 id="settings-screen-title" class="text-xl font-semibold text-gray-800 dark:text-white mb-4">การตั้งค่า</h2>
-  
-            <h3 class="text-gray-800 dark:text-white">เปลี่ยนธีม</h3>
-            <div class="theme-slider mt-4">
-              <div class="flex justify-between items-center mb-2">
-                <span class="text-gray-700 dark:text-gray-300"><i class="fas fa-moon"></i> ธีมมืด</span>
-                <span class="text-gray-700 dark:text-gray-300"><i class="fas fa-sun"></i> ธีมสว่าง</span>
-              </div>
-              <input type="range" id="theme-toggle" min="0" max="1" class="w-full accent-blue-500">
-            </div>
-            <button onclick="toggleTheme()"
-              class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 mt-4">
-              <i class="fas fa-sun"></i> <i class="fas fa-moon hidden"></i> 
-            </button>
-          </article>
-  
-          <article class="card p-4 mt-4 bg-white dark:bg-gray-700 rounded-lg shadow-md" aria-labelledby="language-screen-title"> 
-            <h3 id="language-screen-title" class="text-xl font-semibold text-gray-800 dark:text-white mb-4">เปลี่ยนภาษา</h3>
-            <div id="google-translate-element"></div> 
-          </article>
-        </section>
-  
-        <section id="version-screen" class="screen hidden">
-          <article class="card p-4 mt-4 bg-white dark:bg-gray-700 rounded-lg shadow-md" aria-labelledby="version-screen-title">
-            <h2 id="version-screen-title" class="text-xl font-semibold text-gray-800 dark:text-white mb-4">เวอร์ชั่น</h2>
-            <p class="text-gray-700 dark:text-gray-300">เวอร์ชั่น 1.0.1</p>
-            <li class="text-gray-700 dark:text-gray-300">Designed and built with all the love in the world by the <b class="font-bold">Bureau of Digital Health</b> with the help of 
-              our contributors.</li>
-            <li class="text-gray-700 dark:text-gray-300">© Copyright โรงพยาบาลเปือยน้อย จังหวัดขอนแก่น, 2025. All rights reserved.</li>
-          </article>
-        </section>
-  
-        <section id="content-screen" class="screen hidden">
-          <article class="card p-4 mt-4 bg-white dark:bg-gray-700 rounded-lg shadow-md" aria-labelledby="content-screen-title">
-            <h2 id="content-screen-title" class="text-xl font-semibold text-gray-800 dark:text-white mb-4">บทความและข่าวสาร</h2>
-            <article>
-              <h3 class="text-lg font-semibold text-gray-800 dark:text-white mb-2">โรคไตเรื้อรังคืออะไร?</h3>
-              <img src="https://img2.pic.in.th/pic/1620814642_120564_kidney-disease-removebg-preview.png" alt="ภาพไต" class="object-cover w-200px h-auto rounded-md zoomable"> 
-              <p class="text-gray-700 dark:text-gray-300">โรคไตเรื้อรัง (Chronic kidney disease) คือ ภาวะที่ไตทำงานได้ลดลง โดยดูจากค่าอัตราการกรองของไตที่ผิดปกติ <br>
-                (estimated Glomerular Filtration Rate, eGFR) หรือไตมีภาวะผิดปกติ เช่น มีโปรตีนรั่วในปัสสาวะ 
-                หรือมีความผิดปกติทางรังสีวิทยา เป็นต้น ในระยะเวลามากกว่า 3 เดือนขึ้นไป</p>
-                <p class="text-gray-700 dark:text-gray-300">Original Content By SiPH</p>
-            </article>
-  
-            <article class="mt-4"> 
-              <div class="social-share-buttons flex space-x-4"> 
-                <a href="https://www.facebook.com/sharer/sharer.php?u=your-website-url" target="_blank" class="facebook-share">
-                  <i class="fab fa-facebook-f text-blue-500 text-xl"></i> 
-                </a>
-                <a href="https://twitter.com/intent/tweet?url=your-website-url&text=your-share-text" target="_blank" class="twitter-share">
-                  <i class="fab fa-twitter text-blue-400 text-xl"></i> 
-                </a>
-                <a href="https://line.me/R/msg/text/?your-share-text%0D%0Ayour-website-url" target="_blank" class="line-share">
-                  <i class="fab fa-line text-green-500 text-xl"></i> 
-                </a>
+                <h3 class="text-lg font-semibold text-gray-800 dark:text-white mt-4 mb-2">รายชื่อผู้พัฒนา</h3>
+                <ul class="list-disc list-inside space-y-2 text-gray-700 dark:text-gray-300">
+                  <li>นายภานุวัฒน์ สวัสดิ์วอ ตำแหน่ง นักโภชนาการ</li>
+                  <li>นางสาวมุกดา แทนสอ ตำแหน่ง เจ้าพนักงานเครื่องคอมพิวเตอร์</li>
+                  <li>นายวีระยุทธ อุทัยกัน ตำแหน่ง นักพัฒนาเว็บไซต์ Developer</li>
+                </ul>
+                <h3 class="text-lg font-semibold text-gray-800 dark:text-white mt-4 mb-2">นโยบายการใช้คุกกี้ (Cookies)</h3>
+                <div class="cookie-policy text-gray-700 dark:text-gray-300">
+                  <p>เว็บไซต์นี้ใช้คุกกี้เพื่อปรับปรุงประสบการณ์การใช้งานของคุณ
+                    โดยการใช้เว็บไซต์นี้ต่อไป ถือว่าคุณยอมรับการใช้คุกกี้ของเรา</p>
+                  <p>คุกกี้ที่เราใช้มีดังนี้:</p>
+                  <ul class="list-disc list-inside space-y-2">
+                    <li>**คุกกี้ที่จำเป็น**: คุกกี้เหล่านี้จำเป็นสำหรับการทำงานพื้นฐานของเว็บไซต์</li>
+                    <li>**คุกกี้เพื่อการวิเคราะห์**: คุกกี้เหล่านี้ช่วยให้เราเข้าใจว่าผู้ใช้ใช้งานเว็บไซต์ของเราอย่างไร</li>
+                  </ul>
+                  <p>คุณสามารถดูข้อมูลเพิ่มเติมเกี่ยวกับคุกกี้ได้ที่
+                    <a href="https://www.allaboutcookies.org/" target="_blank" rel="noopener noreferrer" class="text-blue-500 hover:underline">www.allaboutcookies.org</a>
+                  </p>
+                </div>
               </div>
             </article>
-          </article>
-        </section>
+          </section>
   
-        <section id="chatbot-screen" class="screen hidden">
-          <article class="card p-4 mt-4 bg-white dark:bg-gray-700 rounded-lg shadow-md" aria-labelledby="chatbot-screen-title">
-            <h2 id="chatbot-screen-title" class="text-xl font-semibold text-gray-800 dark:text-white mb-4">สอบถามข้อมูล</h2>
-            <div id="chatbox" class="border border-gray-300 dark:border-gray-600 rounded-lg p-4 h-96 overflow-y-auto mb-4" role="log"
-              aria-live="polite">
-            </div>
-            <div class="flex">
-              <input type="text" id="message-input" aria-label="พิมพ์ข้อความ"
-                class="w-full border border-gray-300 dark:border-gray-600 px-3 py-2 rounded-l-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                placeholder="พิมพ์ข้อความ...">
-              <button id="send-message-btn"
-                class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-r-md focus:outline-none focus:ring-2 focus:ring-blue-500">
-                ส่ง
+          <section id="settings-screen" class="screen hidden">
+            <article class="card p-4 mt-4 bg-white dark:bg-gray-700 rounded-lg shadow-md" aria-labelledby="settings-screen-title">
+              <h2 id="settings-screen-title" class="text-xl font-semibold text-gray-800 dark:text-white mb-4">การตั้งค่า</h2>
+              <h3 class="text-gray-800 dark:text-white">เปลี่ยนธีม</h3>
+              <div class="theme-slider mt-4">
+                <div class="flex justify-between items-center mb-2">
+                  <span class="text-gray-700 dark:text-gray-300"><i class="fas fa-moon"></i> ธีมมืด</span>
+                  <span class="text-gray-700 dark:text-gray-300"><i class="fas fa-sun"></i> ธีมสว่าง</span>
+                </div>
+                <input type="range" id="theme-toggle" min="0" max="1" class="w-full accent-blue-500">
+              </div>
+              <button onclick="toggleTheme()" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 mt-4">
+                <i class="fas fa-sun"></i> <i class="fas fa-moon hidden"></i> 
               </button>
-            </div>
-          </article>
-        </section>
-      </main>
+            </article>
+            <article class="card p-4 mt-4 bg-white dark:bg-gray-700 rounded-lg shadow-md" aria-labelledby="language-screen-title"> 
+              <h3 id="language-screen-title" class="text-xl font-semibold text-gray-800 dark:text-white mb-4">เปลี่ยนภาษา</h3>
+              <div id="google-translate-element"></div> 
+            </article>
+          </section>
   
-      <nav class="nav-bar">
-        <ul>
-          <li id="nav-home" class="active">
-            <a href="#home-screen" onclick="showScreen('home-screen')">
-              <i class="fas fa-home"></i><br>
-              หน้าแรก
-            </a>
-          </li>
-          <li id="nav-calculate">
-            <a href="#calculate-screen" onclick="showScreen('calculate-screen')">
-              <i class="fas fa-calculator"></i><br>
-              คำนวณ
-            </a>
-          <li id="nav-table">
-            <a href="#table-screen" onclick="showScreen('table-screen')">
-              <i class="fas fa-table"></i><br>
-              ตาราง
-            </a>
-          </li>
-          <li id="nav-food">
-            <a href="#food-screen" onclick="showScreen('food-screen')">
-              <i class="fas fa-utensils"></i><br>
-              อาหาร
-            </a>
-          </li>
-          <li id="nav-recommend">
-            <a href="#recommend-screen" onclick="showScreen('recommend-screen')">
-              <i class="fas fa-info-circle"></i><br>
-              แนะนำ
-            </a>
-          </li>
-          <li id="nav-content">
-            <a href="#content-screen" onclick="showScreen('content-screen')">
-              <i class="fas fa-newspaper"></i><br>
-              บทความ
-            </a>
-          </li>
-          <li id="nav-reference">
-            <a href="#reference-screen" onclick="showScreen('reference-screen')">
-              <i class="fas fa-book"></i><br>อ้างอิง
-            </a>
-          </li>
-          <li id="nav-settings">
-            <a href="#settings-screen" onclick="showScreen('settings-screen')">
-              <i class="fas fa-cog"></i><br>
-              การตั้งค่า
-            </a>
-          </li>
-          <li id="nav-version">
-            <a href="#version-screen" onclick="showScreen('version-screen')">
-              <i class="fas fa-info-circle"></i><br>
-              เวอร์ชั่น
-            </a>
-          </li>
-          <li id="nav-chatbot">
-            <a href="#chatbot-screen" onclick="showScreen('chatbot-screen')">
-              <i class="fas fa-comment"></i><br>
-              สอบถาม
-            </a>
-          </li>
-        </ul>
-      </nav>
+          <section id="version-screen" class="screen hidden">
+            <article class="card p-4 mt-4 bg-white dark:bg-gray-700 rounded-lg shadow-md" aria-labelledby="version-screen-title">
+              <h2 id="version-screen-title" class="text-xl font-semibold text-gray-800 dark:text-white mb-4">เวอร์ชั่น</h2>
+              <p class="text-gray-700 dark:text-gray-300">เวอร์ชั่น 2.0.0</p>
+              <p>Navigation Bar: Current list of items vs. new list of items.
+                Carousel: Current images/text/buttons vs. new images/text/buttons, and desired order.
+                Section Removal: Name or description of the section being removed.
+                Context Tell me is it website, document, app, etc.</p>
+              <li class="text-gray-700 dark:text-gray-300">Designed and built with all the love in the world by the <b class="font-bold">Bureau of Digital Health</b> with the help of 
+                our contributors.</li>
+              <li class="text-gray-700 dark:text-gray-300">© Copyright โรงพยาบาลเปือยน้อย จังหวัดขอนแก่น, 2025. All rights reserved.</li>
+            </article>
+          </section>
   
-      <div id="cookie-popup" class="fixed inset-0 z-50 flex items-center justify-center hidden"
-        style="background-color: rgba(0, 0, 0, 0.5);"> 
-        <div class="bg-white dark:bg-gray-700 rounded-lg shadow-lg p-6 w-11/12 md:w-1/2"> 
-          <h2 class="text-xl font-bold mb-4 text-gray-800 dark:text-white">เว็บไซต์นี้ใช้คุกกี้</h2>
-          <p class="mb-4 text-gray-700 dark:text-gray-300">
-            เราใช้คุกกี้เพื่อเพิ่มประสิทธิภาพและประสบการณ์การใช้งานที่ดีขึ้น
-            สำหรับคุณ
-            <a href="#reference-screen" onclick="showScreen('reference-screen')" class="text-blue-500 hover:underline">เรียนรู้เพิ่มเติม</a>
-          </p>
-          <div class="flex justify-end">
-            <button onclick="acceptCookies()"
-              class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-              ยอมรับ
-            </button>
-            <button onclick="declineCookies()"
-              class="ml-2 bg-gray-300 hover:bg-gray-400 text-gray-700 font-bold py-2 px-4 rounded dark:bg-gray-600 dark:text-gray-300 dark:hover:bg-gray-500"> 
-              ปฏิเสธ
-            </button>
+          <section id="content-screen" class="screen hidden">
+            <article class="card p-4 mt-4 bg-white dark:bg-gray-700 rounded-lg shadow-md" aria-labelledby="content-screen-title">
+              <h2 id="content-screen-title" class="text-xl font-semibold text-gray-800 dark:text-white mb-4">บทความและข่าวสาร</h2>
+              <article>
+                <h3 class="text-lg font-semibold text-gray-800 dark:text-white mb-2">โรคไตเรื้อรังคืออะไร?</h3>
+                <img src="https://img2.pic.in.th/pic/1620814642_120564_kidney-disease-removebg-preview.png" alt="ภาพไต" class="object-cover w-200px h-auto rounded-md zoomable"> 
+                <p class="text-gray-700 dark:text-gray-300">โรคไตเรื้อรัง (Chronic kidney disease) คือ ภาวะที่ไตทำงานได้ลดลง โดยดูจากค่าอัตราการกรองของไตที่ผิดปกติ <br>
+                  (estimated Glomerular Filtration Rate, eGFR) หรือไตมีภาวะผิดปกติ เช่น มีโปรตีนรั่วในปัสสาวะ 
+                  หรือมีความผิดปกติทางรังสีวิทยา เป็นต้น ในระยะเวลามากกว่า 3 เดือนขึ้นไป</p>
+                  <p class="text-gray-700 dark:text-gray-300">Original Content By SiPH</p>
+              </article>
+              <article class="mt-4"> 
+                <div class="social-share-buttons flex space-x-4"> 
+                  <a href="https://www.facebook.com/sharer/sharer.php?u=your-website-url" target="_blank" class="facebook-share">
+                    <i class="fab fa-facebook-f text-blue-500 text-xl"></i> 
+                  </a>
+                  <a href="https://twitter.com/intent/tweet?url=your-website-url&text=your-share-text" target="_blank" class="twitter-share">
+                    <i class="fab fa-twitter text-blue-400 text-xl"></i> 
+                  </a>
+                  <a href="https://line.me/R/msg/text/?your-share-text%0D%0Ayour-website-url" target="_blank" class="line-share">
+                    <i class="fab fa-line text-green-500 text-xl"></i> 
+                  </a>
+                </div>
+              </article>
+            </article>
+          </section>
+  
+          <section id="chatbot-screen" class="screen hidden">
+            <article class="card p-4 mt-4 bg-white dark:bg-gray-700 rounded-lg shadow-md" aria-labelledby="chatbot-screen-title">
+              <h2 id="chatbot-screen-title" class="text-xl font-semibold text-gray-800 dark:text-white mb-4">สอบถามข้อมูล</h2>
+              <div id="chatbox" class="border border-gray-300 dark:border-gray-600 rounded-lg p-4 h-96 overflow-y-auto mb-4" role="log" aria-live="polite">
+              </div>
+              <div class="flex">
+                <input type="text" id="message-input" aria-label="พิมพ์ข้อความ" class="w-full border border-gray-300 dark:border-gray-600 px-3 py-2 rounded-l-md focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="พิมพ์ข้อความ...">
+                <button id="send-message-btn" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-r-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                  ส่ง
+                </button>
+              </div>
+            </article>
+          </section>
+        </main>
+  
+   <!-- Navigation Bar -->
+<nav class="nav-bar">
+  <div class="nav-container">
+      <ul class="nav-list">
+          <li class="nav-item active" data-screen="home-screen">
+              <a href="#" onclick="showScreen('home-screen')">
+                  <div class="icon-container">
+                      <i class="fas fa-home nav-icon"></i>
+                  </div>
+                  <span class="nav-label">หน้าแรก</span>
+              </a>
+          </li>
+          <li class="nav-item" data-screen="calculate-screen">
+              <a href="#" onclick="showScreen('calculate-screen')">
+                  <div class="icon-container">
+                      <i class="fas fa-calculator nav-icon"></i>
+                  </div>
+                  <span class="nav-label">คำนวณ</span>
+              </a>
+          </li>
+          <li class="nav-item" data-screen="food-recommend-screen">
+              <a href="#" onclick="showScreen('food-recommend-screen')">
+                  <div class="icon-container">
+                      <i class="fas fa-utensils nav-icon"></i>
+                  </div>
+                  <span class="nav-label">อาหาร</span>
+              </a>
+          </li>
+          <li class="nav-item" data-screen="reference-screen">
+              <a href="#" onclick="showScreen('reference-screen')">
+                  <div class="icon-container">
+                      <i class="fas fa-book nav-icon"></i>
+                  </div>
+                  <span class="nav-label">อ้างอิง</span>
+              </a>
+          </li>
+          <li class="nav-item" data-screen="version-screen">
+              <a href="#" onclick="showScreen('version-screen')">
+                  <div class="icon-container">
+                      <i class="fas fa-code-branch nav-icon"></i>
+                  </div>
+                  <span class="nav-label">เวอร์ชั่น</span>
+              </a>
+          </li>
+      </ul>
+  </div>
+</nav>
+
+  
+        <div id="cookie-popup" class="fixed inset-0 z-50 flex items-center justify-center hidden" style="background-color: rgba(0, 0, 0, 0.5);"> 
+          <div class="bg-white dark:bg-gray-700 rounded-lg shadow-lg p-6 w-11/12 md:w-1/2"> 
+            <h2 class="text-xl font-bold mb-4 text-gray-800 dark:text-white">เว็บไซต์นี้ใช้คุกกี้</h2>
+            <p class="mb-4 text-gray-700 dark:text-gray-300">
+              เราใช้คุกกี้เพื่อเพิ่มประสิทธิภาพและประสบการณ์การใช้งานที่ดีขึ้น
+              สำหรับคุณ
+              <a href="#reference-screen" onclick="showScreen('reference-screen')" class="text-blue-500 hover:underline">เรียนรู้เพิ่มเติม              </a>
+            </p>
           </div>
         </div>
       </div>
-    </div>
 
-    <script>
+ <script>
         "use strict";
     
         // ฟังก์ชันสำหรับเลือกเพศ
@@ -958,14 +947,14 @@
         }
     
         // ฟังก์ชันสำหรับคำนวณโภชนาการ
-        function calculateNutrition() {
+          function calculateNutrition() {
           if (!validateForm()) return;
-    
+
           const form = document.getElementById("nutritionForm");
           const gender = form.gender.value;
           const height = parseFloat(form.height.value);
           const phase = form.phase.value;
-    
+
           const phaseMultipliers = {
             '1': 1,
             '2': 1,
@@ -974,22 +963,22 @@
             '4': 0.6,
             '5': 0.6
           };
-    
-          const baseSubtract = gender === "male" ? 100 : 105;
+
+          const baseSubtract = gender === "male"? 100: 105;
           let baseValue = height - baseSubtract;
-    
+
           if (baseValue < 0) {
             baseValue = 0;
           }
-    
+
           const multiplier = phaseMultipliers[phase];
           const finalValue = baseValue * multiplier;
-    
+
           const gramsPerDay = finalValue;
           const spoonsPerDay = (gramsPerDay / 3.5).toFixed(1);
           const gramsPerMeal = (gramsPerDay / 3.0).toFixed(1);
           const spoonsPerMeal = (spoonsPerDay / 3.0).toFixed(1);
-    
+
           document.getElementById("gramsPerDay").textContent = `${gramsPerDay.toFixed(1)} กรัม`;
           document.getElementById("spoonsPerDay").textContent = `${spoonsPerDay} ช้อน`;
           document.getElementById("gramsPerMeal").textContent = `${gramsPerMeal} กรัม`;
@@ -1083,12 +1072,15 @@ const slides = [
         </div>
       </div>
 
-      <div class="mt-4 text-center">
-        <h3 class="text-xl font-bold">วิดีโอ</h3>
-        <div class="w-full max-w-xl mx-auto">
-          <iframe class="w-full aspect-video" src="https://drive.google.com/file/d/1GRsu2cth6EuZWw0BYW3zaiFWgVpZLgO7/preview" frameborder="0" allowfullscreen></iframe>
-        </div>
-      </div>
+  <!-- ส่วนของวิดีโอ -->
+<div class="mt-4">
+  <h3 class="text-xl font-bold text-center">วิดีโอ</h3>
+  <div class="video-container flex justify-around gap-4">
+    <div class="video-wrapper">
+      <iframe width="300" height="200" src="https://drive.google.com/file/d/1GRsu2cth6EuZWw0BYW3zaiFWgVpZLgO7/preview" frameborder="0" allowfullscreen></iframe>
+    </div>
+  </div>
+</div>
     `
   },
   {
@@ -1172,17 +1164,18 @@ const slides = [
         </div>
       </div>
 
-      <div class="mt-4">
-        <h3 class="text-xl font-bold text-center">วิดีโอ</h3>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div class="w-full">
-            <iframe class="w-full aspect-video" src="https://drive.google.com/file/d/1GRzId_RRjg_J4Q1Ll2v3-wBVA0NiMzOg/preview" frameborder="0" allowfullscreen></iframe>
-          </div>
-          <div class="w-full">
-            <iframe class="w-full aspect-video" src="https://drive.google.com/file/d/1H0tYZoBiCutGTrM9H1J2wnemKFYKao6L/preview" frameborder="0" allowfullscreen></iframe>
-          </div>
-        </div>
-      </div>
+  <!-- ส่วนของวิดีโอ -->
+<div class="mt-4">
+  <h3 class="text-xl font-bold text-center">วิดีโอ</h3>
+  <div class="video-container flex justify-center gap-4">
+    <div class="video-wrapper">
+      <iframe width="300" height="200" aspect-video rounded-lg src="https://drive.google.com/file/d/1GRzId_RRjg_J4Q1Ll2v3-wBVA0NiMzOg/preview" frameborder="0" allowfullscreen></iframe>
+    </div>
+    <div class="video-wrapper">
+      <iframe width="300" height="200" aspect-video rounded-lg src="https://drive.google.com/file/d/1H0tYZoBiCutGTrM9H1J2wnemKFYKao6L/preview" frameborder="0" allowfullscreen></iframe>
+    </div>
+  </div>
+</div>
     `
   },
   {
@@ -1191,7 +1184,7 @@ const slides = [
 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
 
   <!-- กล่องข้อมูลผัก -->
-  <div class="border border-gray-300 p-4 rounded-lg">
+  <div class="border border-gray-300 p-4">
     <h2 class="text-lg font-bold mb-2">ผัก</h2>
     <p><b><u>ผัก ข.</u> 1 ส่วน</b> ปริมาณสุก 1 ทัพพี หรือ 50 - 70 กรัม</p>
     <p>ผักดิบ 1 ทัพพี หรือ 70 - 100 กรัม</p>
@@ -1254,7 +1247,7 @@ const slides = [
 </div>
 
   <!-- กล่องข้อมูลข้อควรระวัง -->
-  <div class="border border-gray-300 p-4 rounded-lg">
+  <div class="border border-gray-300 p-4">
     <h2 class="text-lg font-bold mb-2 text-red-500">ข้อควรระวังโพแทสเซียมในผัก</h2>
     <hr class="my-4">
     <div>
@@ -1275,15 +1268,15 @@ const slides = [
 
 </div>
 
-<!-- ส่วนของวิดีโอ -->
+  <!-- ส่วนของวิดีโอ -->
 <div class="mt-4">
   <h3 class="text-xl font-bold text-center">วิดีโอ</h3>
-  <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-    <div class="w-full">
-      <iframe class="w-full aspect-video rounded-lg border border-gray-300" src="https://drive.google.com/file/d/1Gu1isCSUYJJbQ-LGbVuoVKgvRGnYsoA_/preview" frameborder="0" allowfullscreen></iframe>
+  <div class="video-container flex justify-center gap-4">
+    <div class="video-wrapper">
+      <iframe width="300" height="200" aspect-video rounded-lg src="https://drive.google.com/file/d/1Gu1isCSUYJJbQ-LGbVuoVKgvRGnYsoA_/preview" frameborder="0" allowfullscreen></iframe>
     </div>
-    <div class="w-full">
-      <iframe class="w-full aspect-video rounded-lg border border-gray-300" src="https://drive.google.com/file/d/1GnF8oI5uhRubftQGpVY333l2bc_XFOhE/preview" frameborder="0" allowfullscreen></iframe>
+    <div class="video-wrapper">
+      <iframe width="300" height="200" aspect-video rounded-lg src="https://drive.google.com/file/d/1GnF8oI5uhRubftQGpVY333l2bc_XFOhE/preview" frameborder="0" allowfullscreen></iframe>
     </div>
   </div>
 </div>
@@ -1291,11 +1284,8 @@ const slides = [
         `
       },
       {
-        type: "เนื้อสัตว์",
-        content: `
-<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-
-  <!-- กล่องข้อมูลผัก -->
+    type: "เนื้อสัตว์",
+    content: `
   <div class="border border-gray-300 p-4 rounded-lg">
       <h2 class="text-lg font-bold mb-2">ผัก</h2>
       <p><b><u>ผัก ข.</u> 1 ส่วน</b> ปริมาณสุก 1 ทัพพี หรือ 50 - 70 กรัม</p>
@@ -1397,15 +1387,20 @@ const slides = [
       </div>
     </div>
 
-  </div>
+  <!-- ส่วนของวิดีโอ -->
   <div class="mt-4">
     <h3 class="text-xl font-bold text-center">วิดีโอ</h3>
-    <div class="flex justify-around gap-4"> 
-      <iframe width="560" height="315" src="https://drive.google.com/file/d/1GhO1r6oqBHSNY9oyWUynqU7ZYkHbtmcY/preview" frameborder="0" allowfullscreen></iframe>
-      <iframe width="560" height="315" src="https://drive.google.com/file/d/1GXSsw9sLxEh57OwyFMV8E60DWvd83DvC/preview" frameborder="0" allowfullscreen></iframe>
+    <div class="video-container flex justify-center gap-4">
+      <div class="video-wrapper">
+        <iframe width="300" height="200" aspect-video rounded-lg src="https://drive.google.com/file/d/1GhO1r6oqBHSNY9oyWUynqU7ZYkHbtmcY/preview" frameborder="0" allowfullscreen></iframe>
+      </div>
+      <div class="video-wrapper">
+        <iframe width="300" height="200" aspect-video rounded-lg src="https://drive.google.com/file/d/1GXSsw9sLxEh57OwyFMV8E60DWvd83DvC/preview" frameborder="0" allowfullscreen></iframe>
+      </div>
     </div>
   </div>
 </div>
+
         `
       },
       {
@@ -1514,23 +1509,25 @@ const slides = [
 </div>
 </div>
 
-  </div>
+  <!-- ส่วนของวิดีโอ -->
   <div class="mt-4">
     <h3 class="text-xl font-bold text-center">วิดีโอ</h3>
-    <div class="flex justify-around gap-4"> 
-      <iframe width="560" height="315" src="https://drive.google.com/file/d/1GOqqBFBxFv6HeNdvVUKhKKpNfdj7bFBc/preview" frameborder="0" allowfullscreen></iframe>
+    <div class="video-container flex justify-center gap-4">
+      <div class="video-wrapper">
+        <iframe width="300" height="200" aspect-video rounded-lg src="https://drive.google.com/file/d/1GOqqBFBxFv6HeNdvVUKhKKpNfdj7bFBc/preview" frameborder="0" allowfullscreen></iframe>
+      </div>
+      <div class="video-wrapper">
+        <iframe width="300" height="200" aspect-video rounded-lg src="https://drive.google.com/file/d/1GOqqBFBxFv6HeNdvVUKhKKpNfdj7bFBc/preview" frameborder="0" allowfullscreen></iframe>
+      </div>
     </div>
   </div>
 </div>
         `
       },
       {
-        type: "เนื้อสัตว์",
-        content: `
-<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-
-  <!-- กล่องข้อมูลผัก -->
-  <div class="border border-gray-300 p-4 rounded-lg">
+    type: "เนื้อสัตว์",
+    content: `
+<div class="border border-gray-300 p-4 rounded-lg">
     <h2 class="text-lg font-bold mb-2">ข้อควรระวังในข้าว/แป้ง</h2>
     <p class="font-bold"><u>โซเดียมสูง</u></p>
     <ul class="list-disc list-inside ml-4">
@@ -1571,25 +1568,26 @@ const slides = [
 
 </div>
 
-  </div>
-  <div class="mt-4">
-    <h3 class="text-xl font-bold text-center">วิดีโอ</h3>
-    <div class="flex justify-around gap-4"> 
-      <iframe width="560" height="315" src="https://drive.google.com/file/d/1Gl7UcwACyyejhY8bQ5JwI3Zmx-vpE0oO/preview" frameborder="0" allowfullscreen></iframe>
-      <iframe width="560" height="315" src="https://drive.google.com/file/d/1GhO1r6oqBHSNY9oyWUynqU7ZYkHbtmcY/preview" frameborder="0" allowfullscreen></iframe>
+<!-- ส่วนของวิดีโอ -->
+<div class="mt-4">
+  <h3 class="text-xl font-bold text-center">วิดีโอ</h3>
+  <div class="video-container flex justify-center gap-4">
+    <div class="video-wrapper">
+      <iframe width="300" height="200" aspect-video rounded-lg src="https://drive.google.com/file/d/1Gl7UcwACyyejhY8bQ5JwI3Zmx-vpE0oO/preview" frameborder="0" allowfullscreen></iframe>
+    </div>
+    <div class="video-wrapper">
+      <iframe width="300" height="200" aspect-video rounded-lg src="https://drive.google.com/file/d/1GhO1r6oqBHSNY9oyWUynqU7ZYkHbtmcY/preview" frameborder="0" allowfullscreen></iframe>
     </div>
   </div>
 </div>
         `
       },
       {
-        type: "เนื้อสัตว์",
-        content: `
-<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-
-  <!-- กล่องข้อมูลผัก -->
-  <div class="border border-gray-300 p-4 rounded-lg">
-      <h2 class="text-lg font-bold mb-2">น้ำมัน</h2>
+    type: "เนื้อสัตว์",
+    content: `
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div class="border border-gray-300 p-4">
+                <h2 class="text-lg font-bold mb-2">น้ำมัน</h2>
       <p><b>น้ำมัน</b> 1 ส่วน เท่ากับ 1 ช้อนชา</p>
       <hr class="my-4">
       <div class="grid grid-cols-2 gap-2">
@@ -1693,16 +1691,16 @@ const slides = [
       </div>
     </div>
 
-  </div>
-  <div class="mt-4">
-    <h3 class="text-xl font-bold text-center">วิดีโอ</h3>
-    <div class="flex justify-around gap-4"> 
-      <iframe width="560" height="315" src="https://drive.google.com/file/d/1GXSsw9sLxEh57OwyFMV8E60DWvd83DvC/preview" frameborder="0" allowfullscreen></iframe>
+  <!-- ส่วนของวิดีโอ -->
+  </div>  <div class="mt-4 w-full flex justify-center">
+    <div class="video-container">
+      <div class="video-wrapper">
+        <iframe src="https://drive.google.com/file/d/1GXSsw9sLxEh57OwyFMV8E60DWvd83DvC/preview" frameborder="0" allowfullscreen></iframe>
+      </div>
     </div>
   </div>
-</div>
-        `
-      },
+    `
+  },
       {
         type: "เนื้อสัตว์",
         content: `
@@ -1836,10 +1834,16 @@ const slides = [
 <div class="mt-4 text-center">
   <h3 class="text-xl font-bold">วิดีโอ</h3>
   <div class="carousel-slide">
-    <div class="video-container grid grid-cols-1 md:grid-cols-3 gap-4"> 
-      <iframe width="250" height="200" src="https://drive.google.com/file/d/1GOqqBFBxFv6HeNdvVUKhKKpNfdj7bFBc/preview" frameborder="0" allowfullscreen></iframe>
-      <iframe width="250" height="200" src="https://drive.google.com/file/d/1GLPQcQ6PCv43qPEz8zS8kLBFJrUUuVPP/preview" frameborder="0" allowfullscreen></iframe>
-      <iframe width="250" height="200" src="https://drive.google.com/file/d/1GKNjRpA7ZwKr2Rkejpj2rTGYYx4LdanY/preview" frameborder="0" allowfullscreen></iframe>
+    <div class="video-container grid grid-cols-1 md:grid-cols-3 gap-4">
+      <div class="video-wrapper">
+        <iframe width="250" height="200" src="https://drive.google.com/file/d/1GOqqBFBxFv6HeNdvVUKhKKpNfdj7bFBc/preview" frameborder="0" allowfullscreen></iframe>
+      </div>
+      <div class="video-wrapper">
+        <iframe width="250" height="200" src="https://drive.google.com/file/d/1GLPQcQ6PCv43qPEz8zS8kLBFJrUUuVPP/preview" frameborder="0" allowfullscreen></iframe>
+      </div>
+      <div class="video-wrapper">
+        <iframe width="250" height="200" src="https://drive.google.com/file/d/1GKNjRpA7ZwKr2Rkejpj2rTGYYx4LdanY/preview" frameborder="0" allowfullscreen></iframe>
+      </div>
     </div>
   </div>
 
@@ -1847,9 +1851,15 @@ const slides = [
     <h3 class="text-xl font-bold">การอ่านฉลากโภชนาการ</h3>
     <div class="carousel-slide">
       <div class="video-container grid grid-cols-1 md:grid-cols-3 gap-4">
-        <iframe width="250" height="200" src="https://drive.google.com/file/d/1GIVOnsiaBOsYiKPAN7anwCZh3ffFUaKS/preview" frameborder="0" allowfullscreen></iframe>
-        <iframe width="250" height="200" src="https://drive.google.com/file/d/1G8b_fIreDw9zHmM_qpwBFIGXE8FykHra/preview" frameborder="0" allowfullscreen></iframe>
-        <iframe width="250" height="200" src="https://drive.google.com/file/d/1G6Yk4-3DcB7EhnPZZ49HnqHqnRey64nI/preview" frameborder="0" allowfullscreen></iframe>
+        <div class="video-wrapper">
+          <iframe width="250" height="200" src="https://drive.google.com/file/d/1GIVOnsiaBOsYiKPAN7anwCZh3ffFUaKS/preview" frameborder="0" allowfullscreen></iframe>
+        </div>
+        <div class="video-wrapper">
+          <iframe width="250" height="200" src="https://drive.google.com/file/d/1G8b_fIreDw9zHmM_qpwBFIGXE8FykHra/preview" frameborder="0" allowfullscreen></iframe>
+        </div>
+        <div class="video-wrapper">
+          <iframe width="250" height="200" src="https://drive.google.com/file/d/1G6Yk4-3DcB7EhnPZZ49HnqHqnRey64nI/preview" frameborder="0" allowfullscreen></iframe>
+        </div>
       </div>
     </div>
   </div>
@@ -2011,25 +2021,7 @@ const slides = [
           document.getElementById(activeLinkId).classList.add("active");
         }
     
-        // Cookie Banner
-        window.onload = function() {
-          if (!localStorage.getItem("cookieConsent")) {
-            document.getElementById("cookie-popup").classList.remove("hidden");
-          }
-        };
-    
-        function acceptCookies() {
-          localStorage.setItem("cookieConsent", true);
-          document.getElementById("cookie-popup").classList.add("hidden");
-          showScreen('home-screen');
-        }
-    
-        function declineCookies() {
-          // TODO: Implement declineCookies logic
-          document.getElementById("cookie-popup").classList.add("hidden");
-          showScreen('home-screen');
-        }
-    
+
         // ประกาศตัวแปร themeToggle สำหรับ event listener
         const themeToggle = document.getElementById('theme-toggle');
     
@@ -2101,113 +2093,92 @@ const slides = [
           messageInput.value = "";
         }
     
-        // เพิ่มโค้ดส่วนนี้ 👇
-        const translations = {
-          "home-screen-title": {
-            "th": "ยินดีต้อนรับสู่โปรแกรมคำนวณโภชนาการ",
-            "en": "Welcome to the Nutrition Calculator"
-          },
-          "calculate-screen-title": {
-            "th": "คำนวณโภชนาการ",
-            "en": "Calculate Nutrition"
-          },
-          "result-screen-title": {
-            "th": "ผลลัพธ์",
-            "en": "Results"
-          },
-          "table-screen-title": {
-            "th": "ตารางเปรียบเทียบระยะโรคไต",
-            "en": "Kidney Disease Stage Comparison Table"
-          },
-          "food-screen-title": {
-            "th": "ตัวอย่างอาหาร (1 ช้อนกินข้าว)",
-            "en": "Food Examples (1 tablespoon)"
-          },
-          "recommend-screen-title": {
-            "th": "แนะนำอาหารสำหรับผู้ป่วยโรคไต",
-            "en": "Recommended Foods for Kidney Patients"
-          },
-          "reference-screen-title": {
-            "th": "อ้างอิง",
-            "en": "References"
-          },
-          "settings-screen-title": {
-            "th": "การตั้งค่า",
-            "en": "Settings"
-          },
-          "version-screen-title": {
-            "th": "เวอร์ชั่น",
-            "en": "Version"
-          },
-          "chatbot-screen-title": {
-            "th": "สอบถามข้อมูล",
-            "en": "Information Inquiry"
-          },
-          "start-calculate-btn": {
-            "th": "เริ่มคำนวณ",
-            "en": "Start Calculation"
-          },
-          // ... เพิ่มข้อความแปลภาษาอื่นๆ ...
-        };
+       
+      // ฟังก์ชันสำหรับแสดง screen ที่เลือก (แก้ไขส่วนนี้)
+      function showScreen(screenId) {
+        // ซ่อน screen ทั้งหมด
+        const screens = document.querySelectorAll(".screen");
+        screens.forEach(screen => screen.classList.add("hidden"));
+
+        // ลบ active class จาก nav link ทั้งหมด
+        const navLinks = document.querySelectorAll(".nav-bar a");
+        navLinks.forEach(link => link.parentNode.classList.remove("active"));
+
+        // แสดง screen ที่ถูกเลือก
+        document.getElementById(screenId).classList.remove("hidden");
+
+        // เพิ่ม active class ให้กับ nav link ที่ตรงกับ screen ที่ถูกเลือก
+        const activeLinkId = "nav-" + screenId.replace("-screen", "");
+        document.getElementById(activeLinkId).classList.add("active");
+      }
+      
+        // JavaScript สำหรับควบคุม dropdown
+        const dropdownToggle = document.querySelector('.dropdown-toggle');
+        const dropdownMenu = document.querySelector('.dropdown-menu');
+
+        dropdownToggle.addEventListener('click', () => {
+          dropdownMenu.classList.toggle('hidden');
+        });
   
+    </script>
+    <script type="text/javascript"
+      src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit">
+    </script>
+    <script>
+      // ฟังก์ชันสำหรับการสลับหน้าจอ
+      function switchScreen(screenId) {
+          // ลบ active class จากทุกหน้าจอ
+          document.querySelectorAll('.screen').forEach(screen => {
+              screen.classList.remove('active');
+          });
+          
+          // เพิ่ม active class ให้หน้าจอที่เลือก
+          document.getElementById(screenId).classList.add('active');
+          
+          // อัพเดท active state ของ navigation
+          document.querySelectorAll('.nav-item').forEach(item => {
+              item.classList.remove('active');
+          });
+          document.querySelector(`[data-screen="${screenId}"]`).classList.add('active');
+      }
 
-
-// ฟังก์ชันสำหรับเปลี่ยนภาษา
-function googleTranslateElementInit() {
-  new google.translate.TranslateElement({
-    pageLanguage: 'th',
-    includedLanguages: 'th,en',
-    layout: google.translate.TranslateElement.InlineLayout.SIMPLE
-  }, 'google-translate-element');
-
-  // ซ่อนส่วนแปลภาษาที่ address bar
-  const addressBarTranslateElement = document.querySelector('.goog-te-banner-frame');
-  if (addressBarTranslateElement) {
-    addressBarTranslateElement.style.display = 'none';
-  }
+// ฟังก์ชันสำหรับการสลับหน้าจอ
+function switchScreen(screenId) {
+    //... 
 }
-    
+
+// ฟังก์ชันสำหรับแสดง pop-up "New Version"
+function showNewVersionPopup() {
+  Swal.fire({
+    title: 'นโยบายการใช้คุกกี้ (Cookies)',
+    text: 'เว็บไซต์นี้ใช้คุกกี้เพื่อปรับปรุงประสบการณ์การใช้งานของคุณ โดยการใช้เว็บไซต์นี้ต่อไป ถือว่าคุณยอมรับการใช้คุกกี้ของเรา',
+    icon: 'success',
+    showCancelButton: false,
+    showConfirmButton: false,
+    allowOutsideClick: true, // อนุญาตให้คลิกภายนอก pop-up เพื่อปิด
+  });
+}
+
+// เรียกใช้ pop-up เมื่อโหลดหน้าเว็บ
+window.onload = showNewVersionPopup; 
+
+// เพิ่ม event listeners สำหรับปุ่ม navigation
+document.querySelectorAll('.nav-item').forEach(item => {
+    item.addEventListener('click', function() {
+        const screenId = this.getAttribute('data-screen');
+        switchScreen(screenId);
+    });
+});
 
 
-        // ฟังก์ชันสำหรับตรวจสอบคำถามและส่งกลับคำตอบ (ปรับปรุงตรรกะการตอบกลับ)
-        function getChatbotResponse(message) {
-          // ปรับปรุงตรรกะการตอบกลับ Chatbot ที่นี่
-          // ตัวอย่าง if/else แบบง่าย
-          if (message.includes("สวัสดี")) {
-            return "สวัสดีครับ";
-          } else if (message.includes("ชื่ออะไร")) {
-            return "ฉันชื่อ Chatbot ครับ";
-          } else if (message.includes("เป็นไงบ้าง")) {
-            return "สบายดีครับ";
-          } else if (message.includes("ทำอะไรอยู่")) {
-            return "กำลังตอบคำถามของคุณครับ";
-          } else if (message.includes("กินข้าวหรือยัง")) {
-            return "ฉันไม่กินข้าวครับ ฉันเป็น AI";
-          } else if (message.includes("อยู่ที่ไหน")) {
-            return "ฉันอยู่ในโลกดิจิทัลครับ";
-          } else if (message.includes("ดูแลสุขภาพอย่างไร")) {
-            return "การดูแลสุขภาพสำคัญมากครับ ควรออกกำลังกายเป็นประจำ กินอาหารที่มีประโยชน์ และพักผ่อนให้เพียงพอ";
-          } else if (message.includes("อาการโรคไตคืออะไร")) {
-            return "อาการโรคไตรวมถึงความเมื่อยล้า ปัสสาวะบ่อยหรือผิดปกติ ปวดบริเวณไต และอาการบวมที่ขาหรือข้อเท้า";
-          } else if (message.includes("ป้องกันโรคไตอย่างไร")) {
-            return "การป้องกันโรคไตรวมถึงการดื่มน้ำมากๆ หลีกเลี่ยงการกินเกลือและโปรตีนมากเกินไป และตรวจสุขภาพเป็นประจำ";
-          } else if (message.includes("อาการของไข้หวัดใหญ่คืออะไร")) {
-            return "อาการของไข้หวัดใหญ่รวมถึงไข้สูง ปวดหัว ปวดกล้ามเนื้อ หนาวสั่น และอ่อนเพลีย";
-          } else if (message.includes("วิธีป้องกันโรคไข้หวัดใหญ่")) {
-            return "วิธีป้องกันโรคไข้หวัดใหญ่รวมถึงการฉีดวัคซีน ล้างมือบ่อยๆ และหลีกเลี่ยงการใกล้ชิดกับผู้ป่วย";
-          } else if (message.includes("การดูแลสุขภาพจิตทำอย่างไร")) {
-            return "การดูแลสุขภาพจิตรวมถึงการทำกิจกรรมที่ชอบ พูดคุยกับคนที่ไว้ใจ และหมั่นฝึกการทำสมาธิ";
-          } else if (message.includes("ควรกินอาหารแบบไหน")) {
-            return "ควรกินอาหารที่มีประโยชน์ เช่น ผักผลไม้ โปรตีนจากเนื้อปลา ไขมันดี และธัญพืชเต็มเมล็ด";
-          } else {
-            return "ฉันไม่เข้าใจคำถามนี้ ลองถาม [www.google.com](https://www.google.com) ครับ";
-          }
-        }
-    
-      </script>
-      <script type="text/javascript"
-        src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit">
-      </script>
-    </body>
-    
-    </html>
+
+    // Hide loading icon when the page is fully loaded
+    window.addEventListener('load', function() {
+      document.getElementById('loading-icon').style.display = 'none';
+    });
+
+
+
+  </script>
+</body>
+</html>
